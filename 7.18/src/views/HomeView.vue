@@ -1,58 +1,55 @@
 <template>
   <div class="home">
-    <my-table init-request :format="formatData" @onLoad="onLoad" :column="column" index checkbox :data="data_1"
-      :params="params_1" url="/name/" method="post">
-      <template v-slot:operation="slot">
-        <my-button type="primary" @click="handleEdit(slot.data)">编辑</my-button>
-        <my-button type="danger" @click="handleDelete(slot.data)">删除</my-button>
-        <my-button type="success" @click="handleEdit(slot.data)">编辑</my-button>
-        <my-button type="warning" @click="handleDelete(slot.data)">删除</my-button>
-      </template>
-    </my-table>
+    <!-- <my-button>默认按钮</my-button> -->
+    <!-- <my-button size="medium" type="primary" disabled minWidth="120px">1</my-button> -->
+
+    <!-- <my-button icon-prefix type="primary" disabled minWidth="120px">1</my-button> -->
+
+    <!-- <my-button type="primary" loading>成功按钮</my-button> -->
+
+    <!-- <my-button disabled type="primary" :loading="flag" @click="handleSub">成功按钮</my-button> -->
+
+    <!-- <my-button prefix="xingxing" block size="small" type="danger" round>危险按钮</my-button> -->
+
+    <!-- <my-button prefix="xingxing"(字体图标) size="small" type="danger" round>危险按钮</my-button> -->
+
+    <!-- <my-button size="small" type="danger" round>危险按钮</my-button>
+    <my-button suffix="tongzhi" size="mini" type="warning" border>警告按钮</my-button> -->
+
+    <my-button>默认按钮</my-button>
+    <my-button type="primary" :loading="flag" @click="handleSub">成功按钮</my-button>
+    <my-button type="danger">危险按钮</my-button>
+    <my-button type="warning">警告按钮</my-button>
   </div>
 </template>
-
 <script>
-
+import MyButton from '../components/button/index.vue'
 export default {
-  name: 'Home',
+  props: {},
+  components: {
+    MyButton
+  },
   data() {
     return {
-      column: [
-        { label: '姓名', prop: 'name' },
-        { label: '性别', prop: 'gender' },
-        { label: '创建时间', prop: 'create_date' },
-        { label: '操作', type: 'slot', slot_name: 'operation', prop: 'operation' }
-      ],
-      data_1: {
-        name: 'jack'
-      },
-      params_1: {
-        name: 'rose'
-      }
+      flag: false// loading 状态
     }
   },
-  components: {
-    myButton: () => import('../components/button/index.vue'),
-    myTable: () => import('../components/table/index.vue')
+  created() {
   },
+  computed: {},
   methods: {
-    handleEdit(row) {
-      console.log(row)
-    },
-    handleDelete(row) {
-      console.log(row)
-    },
-    onLoad(data) {
-      console.log(data)
-    },
-    formatData(data) {
-      const tableData = data.data
-      tableData.forEach(item => {
-        item.gender = item.gender === '男' ? 1 : 0
-      })
-      return tableData
+    handleSub() {
+      this.flag = true
+      // 定时器
+      setTimeout(() => {
+        this.flag = false
+      }, 2000)
     }
+  },
+  mounted() {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+</style>
