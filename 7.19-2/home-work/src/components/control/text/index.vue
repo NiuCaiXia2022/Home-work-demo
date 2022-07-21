@@ -1,20 +1,36 @@
 <template>
   <div>
-    text
+    <!-- 动态类型渲染 -->
+    {{ data[prop] }}
   </div>
 </template>
 <script>
 export default {
-  props: {},
+  props: {
+    data: {
+      type: Object,
+      default: () => { }
+    },
+    config: {
+      type: Object,
+      default: () => { }
+    },
+    prop: {
+      type: String,
+      default: ''
+    }
+  },
   components: {},
   data() {
-    return {}
+    return {
+    }
   },
-  created() {},
+  created() { },
   computed: {},
   methods: {},
-  mounted() {}
+  mounted() { }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

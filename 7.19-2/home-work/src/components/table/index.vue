@@ -1,52 +1,34 @@
 <template>
   <!--  <el-table-column prop="name" label="姓名" width="180">
         </el-table-column> -->
-  <!--  type="selection"  复选框  --><!--  type="index"  label="序号"  序号  -->
+  <!--  type="selection"  复选框  -->
+  <!--  type="index"  label="序号"  序号  -->
   <!-- :render-header="item.renderHeader"  修改标头 -->
 
   <!-- @selection-change.sync="handleSelectionChange"  可以修改父组件传递的值  eslint 报错  不识别  v-bind 已废弃 。sync 指令-->
   <!-- :sortable="item.sortable"   排序 -->
   <div>
     <!-- {{ tableData }} -->
-    // eslint-disable-next-line
-    <el-table
-      :data="tableData"
-      style="width: 100%;"
-      @selection-change="handleSelectionChange"
-      @sort-change="handleSortChange"
-    >
-      <el-table-column
-        v-if="index"
-        type="index"
-        label="序号"
-        width="50"
-      ></el-table-column>
-      <el-table-column
-        v-if="checkbox"
-        type="selection"
-        width="50"
-      ></el-table-column>
+    <el-table :data="tableData" style="width: 100%;" @selection-change="handleSelectionChange"
+      @sort-change="handleSortChange">
+      <el-table-column v-if="index" type="index" label="序号" width="50"></el-table-column>
+      <el-table-column v-if="checkbox" type="selection" width="50"></el-table-column>
 
       <template v-for="(item, index) in column">
         <!-- 1 -->
-        <el-table-column
-          :key="index"
-          v-if="item.type === 'function'"
-          :prop="item.prop"
-          :label="item.label"
-          :render-header="item.renderHeader"
-          :sortable="item.sort"
-          :sort-by="item.sortBy"
-        >
+        <el-table-column :key="index" :prop="item.prop" :label="item.label" :render-header="item.renderHeader"
+          :sortable="item.sort" :sort-by="item.sortBy">
           <template v-slot="scope">
-            <!-- <component is="function"></component> -->
-            <div
+            <slot v-if="item.type === 'slot'" :name="item.slot_name" :data="scope.row"></slot>
+            <component v-else :data="scope.row" :config="item" :prop="item.prop"
+              :is="!item.type ? 'com-text' : `com-${item.type}`"></component>
+            <!-- <div
               v-html="item.callback && item.callback(scope.row, index)"
-            ></div>
+            ></div> -->
           </template>
         </el-table-column>
         <!-- 2 -->
-        <el-table-column
+        <!-- <el-table-column
           :key="item.prop"
           v-if="item.type === 'slot'"
           :prop="item.prop"
@@ -56,12 +38,12 @@
           :sort-by="item.sortBy"
         >
           <template v-slot="scope">
-            <!-- 作用域插槽 -->
+            作用域插槽
             <slot :name="item.slot_name" :data="scope.row"></slot>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <!-- 3 -->
-        <el-table-column
+        <!-- <el-table-column
           :key="item.label"
           v-else
           :prop="item.prop"
@@ -69,7 +51,7 @@
           :render-header="item.renderHeader"
           :sortable="item.sort"
           :sort-by="item.sortBy"
-        ></el-table-column>
+        ></el-table-column> -->
       </template>
     </el-table>
   </div>
@@ -112,11 +94,11 @@ export default {
     },
     params: {
       type: Object,
-      defauil: () => {}
+      defauil: () => { }
     },
     data: {
       type: Object,
-      defauil: () => {}
+      defauil: () => { }
     },
     initRequest: Boolean,
     onLoad: Boolean,
@@ -204,7 +186,7 @@ export default {
       this.$emit('', { sortBy, order })
     }
   },
-  mounted() {}
+  mounted() { }
 }
 </script>
 

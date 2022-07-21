@@ -33,26 +33,11 @@
      -->
   <div class="home">
     <!-- 子组件  -->
-    <myTable
-      :column="column"
-      index
-      checkbox
-      url="/name/"
-      method="GET"
-      :data="data_1"
-      :params="params_1"
-      init-request
-      ref="tabledemo"
-      on-load
-      @onLoad="onLoad"
-      :format="formatDate"
-      :check-list="checkList"
-    >
+    <myTable :column="column" index checkbox url="/name/" method="GET" :data="data_1" :params="params_1" init-request
+      ref="tabledemo" on-load @onLoad="onLoad" :format="formatDate" :check-list="checkList">
       <el-button type="primary" @click="getCheckList">复选框数据</el-button>
       <template v-slot:operation="slot">
-        <el-button type="primary" @click="handleEdit(slot.data)"
-          >编辑</el-button
-        >
+        <el-button type="primary" @click="handleEdit(slot.data)">编辑</el-button>
         <el-button type="danger">编辑</el-button>
         <button @click="handleDeletet">删除</button>
       </template>
@@ -72,15 +57,8 @@ export default {
       column: [
         {
           label: '姓名',
-          prop: 'name',
-          renderHeader: (h, { column, $index }) => {
-            // return <input type="text" />
-            return <div style="color:red;">123</div>
-          }
+          prop: 'name'
         },
-        // { label: '性别', prop: 'gender', sortable: true }, sortable: true  排序    sort: true, sortBy: 'a.xx' 自定义字段 排序
-        { label: '性别', prop: 'gender', sort: true },
-        { label: '广告图片', prop: 'gender', type: 'img' },
         { label: '创建时间', prop: 'create_date', sort: true, sortBy: 'a.xx' },
         {
           label: '操作',
@@ -98,7 +76,7 @@ export default {
       checkList: []
     }
   },
-  created() {},
+  created() { },
   computed: {},
   methods: {
     // 编辑
@@ -172,4 +150,24 @@ export default {
       this.$refs.tabledemo.getInitRequest()
     }, 1000)
   } */
+
+// {
+//    label: '姓名',
+//    prop: 'name',
+//    renderHeader: (h, { column, $index }) => {
+//      // return <input type="text" />
+//      return <div style="color:red;">123</div>
+//    }
+//  },
+//  // { label: '性别', prop: 'gender', sortable: true }, sortable: true  排序    sort: true, sortBy: 'a.xx' 自定义字段 排序
+//  {
+//    label: '性别',
+//    prop: 'gender',
+//    sort: true,
+//    type: 'function',
+//    callback: () => {
+//      return 111
+//    }
+//  },
+//  { label: '广告图片', prop: 'gender', type: 'img' },
 </style>

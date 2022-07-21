@@ -1,21 +1,35 @@
 <template>
   <div>
-    function
-    <div v-html="item.callback && item.callback(scope.row, index)"></div>
+    <!-- function -->
+    <div v-html="config.callback && config.callback(data, index)"></div>
   </div>
 </template>
 <script>
 export default {
-  props: {},
+  props: {
+    data: {
+      type: Object,
+      default: () => { }
+    },
+    config: {
+      type: Object,
+      default: () => { }
+    },
+    prop: {
+      type: String,
+      default: ''
+    }
+  },
   components: {},
   data() {
     return {}
   },
-  created() {},
+  created() { },
   computed: {},
   methods: {},
-  mounted() {}
+  mounted() { }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
