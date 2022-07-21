@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- image -->
-    <img :src="data[prop]" width="80" height="80" />
+    <el-tag type="success" v-if="data[prop] === 1">正常</el-tag>
+    <el-tag type="info" v-if="data[prop] === 0">禁用</el-tag>
   </div>
 </template>
 <script>
@@ -20,14 +20,18 @@ export default {
       default: ''
     }
   },
-  components: {},
+  components: {
+
+  },
   data() {
     return {}
   },
-  created() { },
+  created() {
+  },
   computed: {},
   methods: {},
-  mounted() { }
+  mounted() {
+  }
 }
 </script>
 

@@ -7,6 +7,10 @@
 
   <!-- @selection-change.sync="handleSelectionChange"  可以修改父组件传递的值  eslint 报错  不识别  v-bind 已废弃 。sync 指令-->
   <!-- :sortable="item.sortable"   排序 -->
+  <!--      <div
+              v-html="item.callback && item.callback(scope.row, index)"
+            ></div>
+   -->
   <div>
     <!-- {{ tableData }} -->
     <el-table :data="tableData" style="width: 100%;" @selection-change="handleSelectionChange"
@@ -14,45 +18,16 @@
       <el-table-column v-if="index" type="index" label="序号" width="50"></el-table-column>
       <el-table-column v-if="checkbox" type="selection" width="50"></el-table-column>
 
-      <template v-for="(item, index) in column">
-        <!-- 1 -->
-        <el-table-column :key="index" :prop="item.prop" :label="item.label" :render-header="item.renderHeader"
-          :sortable="item.sort" :sort-by="item.sortBy">
-          <template v-slot="scope">
-            <slot v-if="item.type === 'slot'" :name="item.slot_name" :data="scope.row"></slot>
-            <component v-else :data="scope.row" :config="item" :prop="item.prop"
-              :is="!item.type ? 'com-text' : `com-${item.type}`"></component>
-            <!-- <div
-              v-html="item.callback && item.callback(scope.row, index)"
-            ></div> -->
-          </template>
-        </el-table-column>
-        <!-- 2 -->
-        <!-- <el-table-column
-          :key="item.prop"
-          v-if="item.type === 'slot'"
-          :prop="item.prop"
-          :label="item.label"
-          :render-header="item.renderHeader"
-          :sortable="item.sort"
-          :sort-by="item.sortBy"
-        >
-          <template v-slot="scope">
-            作用域插槽
-            <slot :name="item.slot_name" :data="scope.row"></slot>
-          </template>
-        </el-table-column> -->
-        <!-- 3 -->
-        <!-- <el-table-column
-          :key="item.label"
-          v-else
-          :prop="item.prop"
-          :label="item.label"
-          :render-header="item.renderHeader"
-          :sortable="item.sort"
-          :sort-by="item.sortBy"
-        ></el-table-column> -->
-      </template>
+      <!-- 1 -->
+      <el-table-column v-for="(item, index) in column" :key="index" :prop="item.prop" :label="item.label"
+        :render-header="item.renderHeader" :sortable="item.sort" :sort-by="item.sortBy">
+        <template v-slot="scope">
+          <slot v-if="item.type === 'slot'" :name="item.slot_name" :data="scope.row"></slot>
+          <component v-else :data="scope.row" :config="item" :prop="item.prop"
+            :is="!item.type ? 'com-text' : `com-${item.type}`"></component>
+        </template>
+      </el-table-column>
+
     </el-table>
   </div>
 </template>
@@ -147,16 +122,21 @@ export default {
         }
 
         const res = await this.$axios(requestData)
-        this.tableData = res.data.data
+        // this.tableData = res.data.data
 
         // 发送给父组件
         let data = res.data
-        // console.log(res)
+        console.log('data111', data)
         if (this.format && typeof this.format === 'function') {
           data = this.format(res.data)
         }
 
         this.tableData = data
+        // this.tableData.push({
+        //   id: 123,
+        //   name: 'hahaha',
+        //   url: 'https://img2.baidu.com/it/u=2114902769,2640832605&fm=253&fmt=auto&app=138&f=JPEG?w=522&h=500'
+        // })
 
         this.onLoad && this.$emit('onLoad', res)
       } catch (error) {
@@ -176,6 +156,7 @@ export default {
       this.$emit('update:checkList', val)
       // this.checkList = val
     },
+
     // 表格数据远程排序
     handleSortChange({ column, prop, order }) {
       // console.log(column当前行信息, prop当前字段, order升降)
@@ -199,4 +180,30 @@ export default {
 //   address: '上海市普陀区金沙江路 1518 弄',
 //   sex: '男'
 // },
+
+// <!-- 2 -->
+//   <!-- <el-table-column
+//       :key="item.prop"
+//       v-if="item.type === 'slot'"
+//       :prop="item.prop"
+//       :label="item.label"
+//       :render-header="item.renderHeader"
+//       :sortable="item.sort"
+//       :sort-by="item.sortBy"
+//     >
+//       <template v-slot="scope">
+//         作用域插槽
+//         <slot :name="item.slot_name" :data="scope.row"></slot>
+//       </template>
+//     </el-table-column> -->
+//   <!-- 3 -->
+//   <!-- <el-table-column
+//       :key="item.label"
+//       v-else
+//       :prop="item.prop"
+//       :label="item.label"
+//       :render-header="item.renderHeader"
+//       :sortable="item.sort"
+//       :sort-by="item.sortBy"
+//     ></el-table-column> -->
 </style>

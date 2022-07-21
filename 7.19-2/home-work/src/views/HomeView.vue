@@ -60,6 +60,7 @@ export default {
           prop: 'name'
         },
         { label: '创建时间', prop: 'create_date', sort: true, sortBy: 'a.xx' },
+        { label: '图片', prop: 'url', type: 'image' },
         {
           label: '操作',
           prop: 'operation',

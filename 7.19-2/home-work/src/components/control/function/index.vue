@@ -1,7 +1,8 @@
 <template>
   <div>
+
     <!-- function -->
-    <div v-html="config.callback && config.callback(data, index)"></div>
+    <div v-html="config.callback && config.callback(data)"></div>
   </div>
 </template>
 <script>
