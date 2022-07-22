@@ -2,7 +2,7 @@
 // this.formItem = createRules(this.item)
 
 // 验证 抽离
-import { validatePhone, validatePass, validateEmail } from '../../../utils/vaildate'
+import { validatePhone, validatePass, validateEmail } from '../../utils/vaildate'
 export const createRules = (data) => {
   // console.log('1', data)
   data.forEach(item => {

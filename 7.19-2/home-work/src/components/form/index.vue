@@ -5,22 +5,24 @@
       <template v-for="(item) in formItem">
 
         <!-- 1 input-->
-        <el-form-item :key="item.label" v-if="item.type === 'input'" :rules="item.rules" :label="item.label"
-          :prop="item.prop">
-          <el-input v-model="field[item.prop]"></el-input>
+        <el-form-item :key="item.label" :rules="item.rules" :label="item.label" :prop="item.prop">
+          <!-- <el-input v-model="field[item.prop]"></el-input> -->
+          <component :value.sync="field[item.prop]" :config="item" :is="!item.type ? 'com-text' : `com-${item.type}`">
+          </component>
         </el-form-item>
 
         <!-- 2 下拉框-->
-        <el-form-item :key="item.label" v-if="item.type === 'select'" :rules="item.rules" :label="item.label"
+        <!-- <el-form-item :key="item.label" v-if="item.type === 'select'" :rules="item.rules" :label="item.label"
           :prop="item.prop">
           <el-select v-model="field[item.prop]"></el-select>
-        </el-form-item>
+        </el-form-item> -->
 
       </template>
       <!-- 3 按钮 -->
       <el-form-item>
-        <el-button @click="hanldeClick(item)" v-for="(item, index) in button" :key="index" v-bind="item">{{ item.label
-        }}
+        <el-button @click="hanldeClick(item)" :loading="item.loading" v-for="(item, index) in button" :key="index"
+          v-bind="item">{{ item.label
+          }}
         </el-button>
       </el-form-item>
     </el-form>
@@ -28,6 +30,22 @@
 </template>
 <script>
 import { createRules } from './createRules.js'
+// 集成组件
+const modules = {}
+// 映射组件
+const files = require.context('../control', true, /index.vue$/i)
+console.log('files', files)
+console.log('keys', files.keys()) // 打印Key 值
+// 循环  切割
+files.keys().forEach((item) => {
+  const key = item.split('/')
+  const name = key[1]
+  // const component = files(item).default
+  // console.log(name, component)
+  // 添加集成组件
+  modules[`com-${name}`] = files(item).default
+})
+console.log(modules)
 export default {
   props: {
     item: {
@@ -45,9 +63,12 @@ export default {
     button: {
       type: Array,
       default: () => []
-    }
+    },
+    beforeSubmit: Function
   },
-  components: {},
+  components: {
+    ...modules
+  },
   data() {
     return {
       formItem: []
@@ -62,7 +83,7 @@ export default {
     },
     // 点击按钮
     hanldeClick(item) {
-      console.log('提交1', item.key)
+      // console.log('提交1', item.key)
       // 提交2
       if (item.key === 'submit') {
         this.handleSubmit(item)
@@ -76,12 +97,22 @@ export default {
 
     // 1 提交2
     handleSubmit(item) {
-      console.log('提交2', item)
-      // 提交验证
-      this.$refs.form.validate(valid => {
-        console.log('valid', valid)
+      // console.log('提交2', item)
+
+      this.$refs.form.validate(valid => { // 提交验证
+        // item.loading = true
         if (valid) {
-          console.log('表单提交')
+          this.$set(item, 'loading', true)
+          // 判断 父传子 是不是函数
+          if (typeof this.beforeSubmit === 'function') {
+            this.beforeSubmit().then(res => {
+              this.$set(item, 'loading', false)
+              console.log('success')
+            }).catch((error) => {
+              this.$set(item, 'loading', false)
+              console.log(error)
+            })
+          }
         }
       })
     },

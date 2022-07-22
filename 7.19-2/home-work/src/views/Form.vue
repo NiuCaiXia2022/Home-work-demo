@@ -1,14 +1,14 @@
 <template>
   <!-- <myFrom :item="FormItem" :rules="formRules" 验证 :field="formField" 内容></myFrom>  -->
   <div>
-    <myFrom :item="FormItem" :field="formField" :button="formButton"></myFrom>
+    <myFrom :item="FormItem" :field="formField" :button="formButton" :before-submit="handleSubmit"></myFrom>
   </div>
 </template>
 <script>
 export default {
   props: {},
   components: {
-    myFrom: () => import('../components/control/form')
+    myFrom: () => import('../components/form')
   },
   data() {
     // 自定义 密码验证机制   rule-规则  value-内容  callback-提示
@@ -22,6 +22,7 @@ export default {
     return {
       // 按钮
       formButton: [
+        // { label: '提交', key: 'submit', type: 'primary', size: 'mini', loading: true loading 加载},
         { label: '提交', key: 'submit', type: 'primary', size: 'mini' },
         { label: '重置', key: 'cancel', type: 'danger', size: 'small', callback: () => { this.handleRest() } },
         { label: '下一个', key: 'next', type: 'success' }
@@ -47,27 +48,21 @@ export default {
         {
           label: '密码',
           type: 'input',
-          prop: 'password',
-          valueType: 'password',
-          required: true // 验证规则
+          prop: 'password'
+          // valueType: 'password'
+          // required: true // 验证规则
         },
         {
           label: '邮箱',
           type: 'input',
-          prop: 'email',
-          valueType: 'email',
-          required: true // 验证规则
-        },
-        {
-          label: '年龄',
-          type: 'select',
-          prop: 'age',
-          required: true // 验证规则
+          prop: 'email'
+          // valueType: 'email'
+          // required: true // 验证规则
         }
       ],
       // 内容
       formField: {
-        phone: '1234',
+        phone: '13412341234',
         password: '',
         age: '',
         email: ''
@@ -82,6 +77,14 @@ export default {
     // 重置
     handleRest() {
       alert('表单重置完成!!!')
+    },
+    //
+    handleSubmit() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve()
+        }, 2000)
+      })
     }
   },
   mounted() {
