@@ -1,10 +1,12 @@
 <template>
   <div>
-    <el-input v-model="val" @input="handleInputEvent"></el-input>
+    <!-- <ei-input v-model="val" @input="handleInputEvent" /> -->
+    <ei-input v-model="val" />
   </div>
 </template>
 <script>
 export default {
+  name: 'demoInputComponent',
   props: {
     value: {
       type: [String, Number],
