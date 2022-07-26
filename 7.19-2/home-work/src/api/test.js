@@ -7,6 +7,7 @@ import request from '@/utils/request'
 const getTest1 = () => {
   return request({
     url: '/article/label/search',
+    // method: 'GET',
     method: 'GET',
     basePath: '/api'
   })

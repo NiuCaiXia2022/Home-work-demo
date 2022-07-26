@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <my-form :item="formItem" :button="formButton"></my-form> -->
-    <my-form :item="formItem"></my-form>
+    <myForm :item="formItem" :button="formButton"></myForm>
   </div>
 </template>
 <script>
@@ -15,7 +15,11 @@ export default {
     return {
       formButton: [
         { label: '提交', key: 'submit', type: 'primary' },
-        { label: '编辑', key: 'cancel', type: 'danger' }
+        {
+          label: '编辑',
+          key: 'cancel',
+          type: 'danger'
+        }
       ],
       formItem: [
         {
@@ -23,27 +27,28 @@ export default {
           type: 'demoInput',
           prop: 'name',
           required: true
+        },
+        {
+          label: '状态:',
+          type: 'demoSelect',
+          prop: 'status',
+          required: true,
+          initRequest: true,
+          url: '/classroom/',
+          basePath: '/api',
+          method: 'GET',
+          props: {
+            label: 'class_name',
+            value: 'id'
+          }
         }
-        // {
-        //   label: '状态:',
-        //   type: 'demoSelect',
-        //   prop: 'status',
-        //   required: true,
-        //   initRequest: true,
-        //   props: {
-        //     label: 'class_name',
-        //     value: 'id'
-        //   },
-        //   url: '/classroom/',
-        //   basePath: '/api',
-        //   method: 'GET'
-        // }
       ]
     }
   },
   created() {
   },
-  computed: {},
+  computed: {
+  },
   methods: {},
   mounted() {
   }
@@ -51,4 +56,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// {
+
+//   label: '状态:',
+//   type: 'demoSelect',
+//   prop: 'status',
+//   required: true,
+//   initRequest: true,
+//   props: {
+//     label: 'class_name',
+//       value: 'id'
+//   }
+
+//   ,
+//   url: '/classroom/',
+//   basePath: '/api',
+//   method: 'GET'
+// }
 </style>

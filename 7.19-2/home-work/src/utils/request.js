@@ -29,6 +29,7 @@ const service = axios.create({
 
 // 请求拦截器
 service.interceptors.request.use((config) => {
+  console.log('config', config)
   return config
 }, (error) => {
   return Promise.reject(error)
@@ -49,11 +50,19 @@ const request = (options) => {
   // console.log(options)
 
   // 解决请求多个代理名称问题
-  console.log(options.basePath)
+  // console.log(options.basePath)
   if (options.basePath) {
-    // 公共请求接口
+    console.log(1)
     service.defaults.baseURL = options.basePath
+  } else {
+    console.log(2)
+
+    service.defaults.baseURL = '/api'
   }
+  // if (options.basePath) {
+  //   // 公共请求接口
+  //   service.defaults.baseURL = options.basePath
+  // }
   return service(options)
 }
 

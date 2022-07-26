@@ -3,7 +3,7 @@
 
 // 验证 抽离
 import { validatePhone, validatePass, validateEmail } from '../../utils/vaildate'
-export const createRules = (data) => {
+const createRules = (data) => {
   // console.log('1', data)
   data.forEach(item => {
     let rulesArray = []
@@ -56,4 +56,4 @@ const createMessage = (data) => {
   return `${msg}${data.label}`
 }
 
-// export default createRules
+export default createRules

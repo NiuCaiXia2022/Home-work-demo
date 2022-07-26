@@ -5,7 +5,7 @@
       <template v-for="(item) in formItem">
 
         <!-- 1 input-->
-        <el-form-item :key="item.label" :rules="item.rules" :label="item.label" :prop="item.prop">
+        <el-form-item :key="item" :rules="item.rules" :label="item.label" :prop="item.prop">
           <!-- <el-input v-model="field[item.prop]"></el-input> -->
           <component :value.sync="field[item.prop]" :config="item" :is="!item.type ? 'com-text' : `com-${item.type}`">
           </component>
@@ -29,23 +29,27 @@
   </div>
 </template>
 <script>
-import { createRules } from './createRules.js'
+import createRules from './createRules.js'
 // 集成组件
 const modules = {}
 // 映射组件
 const files = require.context('../control', true, /index.vue$/i)
-console.log('files', files)
-console.log('keys', files.keys()) // 打印Key 值
+// console.log('files', files)
+// console.log('keys', files.keys()) // 打印Key 值
 // 循环  切割
 files.keys().forEach((item) => {
+  // console.log('集成组件', files(item).default)
+
   const key = item.split('/')
   const name = key[1]
   // const component = files(item).default
-  // console.log(name, component)
+  console.log('name', name)
+  // console.log(modules[`com-${name}`])
   // 添加集成组件
+  console.log('modules', modules)
   modules[`com-${name}`] = files(item).default
 })
-console.log(modules)
+console.log('components/control/from/index', modules)
 export default {
   props: {
     item: {
@@ -79,7 +83,7 @@ export default {
   computed: {},
   methods: {
     onSubmit() {
-      console.log('submit!')
+      // console.log('submit!')
     },
     // 点击按钮
     hanldeClick(item) {
@@ -107,7 +111,7 @@ export default {
           if (typeof this.beforeSubmit === 'function') {
             this.beforeSubmit().then(res => {
               this.$set(item, 'loading', false)
-              console.log('success')
+              // console.log('success')
             }).catch((error) => {
               this.$set(item, 'loading', false)
               console.log(error)
@@ -132,7 +136,7 @@ export default {
     // console.log('this.item', this.item)
     this.formItem = createRules(this.item)
     // this.formItem = this.item
-    console.log('this.formItem ', this.formItem)
+    // console.log('this.formItem ', this.formItem)
   }
 }
 </script>

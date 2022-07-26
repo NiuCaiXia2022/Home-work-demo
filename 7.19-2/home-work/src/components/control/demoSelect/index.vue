@@ -57,6 +57,9 @@ export default {
     },
     initRequest() {
       return this.config?.initRequest
+    },
+    basePath() {
+      return this.config?.basePath || ''
     }
   },
   methods: {
@@ -112,7 +115,8 @@ export default {
 
       const res = await this.$axios({
         url: this.url,
-        method: this.method
+        method: this.method,
+        basePath: this.basePath
       })
       // console.log('res', res)
 

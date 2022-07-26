@@ -8,6 +8,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 // import TestApi from './api/test'
+// console.log('基础路径', TestApi)
 
 Vue.prototype.$axios = request
 

@@ -7,6 +7,7 @@
 </template>
 <script>
 export default {
+  name: 'index',
   props: {
     data: {
       type: Object,

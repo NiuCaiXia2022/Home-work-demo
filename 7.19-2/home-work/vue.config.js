@@ -13,14 +13,14 @@ module.exports = defineConfig({
         pathRewrite: {
           [`^${process.env.VUE_APP_API}`]: ''
         }
-      },
-      [process.env.VUE_APP_API1]: {
-        target: process.env.VUE_API_DEV_TARGET1, // API1 服务器的地址
-        changeOrigin: true,
-        pathRewrite: {
-          [`^${process.env.VUE_APP_API1}`]: ''
-        }
       }
+      // [process.env.VUE_APP_API1]: {
+      //   target: process.env.VUE_API_DEV_TARGET1, // API1 服务器的地址
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     [`^${process.env.VUE_APP_API1}`]: ''
+      //   }
+      // }
     }
   }
 })
