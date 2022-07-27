@@ -64,6 +64,21 @@ export default {
           method: 'GET'
         },
         {
+          label: '食物',
+          type: 'checkbox',
+          prop: 'food',
+          required: true,
+          // 更改 options 属性  重新赋值   可以自动识别
+          props: { label: 'a', value: 'b' },
+          options: [
+            { a: '苹果', b: '1' },
+            { a: '香蕉', b: '2' },
+            { a: '樱桃', b: '3' },
+            { a: '西瓜', b: '4' },
+            { a: '水蜜桃', b: '5' }
+          ]
+        },
+        {
           label: '教室',
           type: 'select',
           prop: 'class_room',
@@ -88,7 +103,8 @@ export default {
         phone: '13412341234',
         password: '',
         age: '',
-        email: ''
+        email: '',
+        food: []
       }
 
     }
