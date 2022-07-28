@@ -7,17 +7,12 @@
   </div>
 </template>
 <script>
+// 导入封装的props内容
+import props from '../basis'
 export default {
   name: 'SelectComponent',
   props: {
-    value: {
-      type: [String, Number],
-      default: ''
-    },
-    config: {
-      type: Object,
-      default: () => ({})
-    }
+    ...props
   },
   components: {},
   data() {

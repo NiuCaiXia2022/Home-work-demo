@@ -7,17 +7,12 @@
   </div>
 </template>
 <script>
+// 导入封装的props内容
+import props from '../basis'
 export default {
   name: 'CheckboxComponent',
   props: {
-    value: {
-      type: [String, Number, Array],
-      default: ''
-    },
-    config: {
-      type: Object,
-      default: () => ({})
-    }
+    ...props
   },
   components: {},
   data() {

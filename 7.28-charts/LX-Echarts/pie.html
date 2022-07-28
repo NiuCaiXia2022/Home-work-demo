@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>练习Echarts</title>
+  <!-- 不要加 ./  -->
+  <script src="./js/echarts.js"></script>
+</head>
+
+<body>
+  <div id="main" style="width:600px; height:400px"></div>
+  <script>
+    // 获取dome元素
+    const main = document.getElementById('main')
+    // 初始化 Echarts 实例
+    const myChart = echarts.init(main)
+
+    // 定义数据
+    const option = {
+      title: {
+        tetxt: '饼图',
+        subtext: '小标题',
+        left: 'conter'
+      },
+      // series  [ˈsɪəriːz]
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
+      },
+      legend: {
+        left: 'center',
+        top: 'top'
+      },
+      toolbox: { // 右上的信息
+        show: true,
+        feature: {
+          mark: { show: true },
+          dataView: { show: true, readOnly: false },
+          restore: { show: true },
+          saveAsImage: { show: true }
+        }
+      },
+      series: [
+        {
+          name: '饼图',
+          type: 'pie',
+          radius: [10, 120],
+          center: ['55%', '50%'], // 方位
+          roseType: 'area',
+          itemStyle: {
+            borderRadius: 20
+          },
+          data: [
+            { value: 30, name: '花瓣 1' },
+            { value: 28, name: '花瓣 2' },
+            { value: 26, name: '花瓣 3' },
+            { value: 24, name: '花瓣 4' },
+            { value: 22, name: '花瓣 5' },
+            { value: 20, name: '花瓣 6' },
+            { value: 18, name: '花瓣 7' },
+            { value: 16, name: '花瓣 8' }
+          ]
+        }
+      ]
+
+    }
+
+
+    // 将图表数据导出 demo元素上
+    myChart.setOption(option)
+  </script>
+</body>
+
+</html>
