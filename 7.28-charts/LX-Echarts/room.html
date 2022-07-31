@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./js/flexible.js"></script>
+  <!-- <script src="node_modules/flexible.js/index.js"></script>   不能用 -->
+  <style>
+    .box {
+      width: 3.75rem;
+      height: 3.75rem;
+      background-color: red;
+    }
+
+    span {
+      font-size: .5rem;
+    }
+
+    /* 媒体查询 */
+    @media screen and (max-width: 1024px) {
+      html {
+        background: blue;
+        font-size: 42.66px !important;
+      }
+    }
+
+    @media screen and (min-width: 1920px) {
+      html {
+        background: green;
+        font-size: 80px !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <span>1234</span>
+  </div>
+</body>
+
+</html>

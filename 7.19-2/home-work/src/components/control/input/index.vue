@@ -16,7 +16,7 @@ export default {
     // 监听 父传子的值
     value: {
       handler(newValue) {
-        console.log('父传子的值', newValue)
+        // console.log('父传子的值', newValue)
         this.val = newValue
       },
       immediate: true

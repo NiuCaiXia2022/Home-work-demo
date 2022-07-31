@@ -1,17 +1,18 @@
 <template>
   <div>
-    <el-select v-model="val" @change="handleSelectChangeEvent">
-      <el-option v-for="item in options" :key="item[props.value]" :label="item[props.label]" :value="item[props.value]">
-      </el-option>
-    </el-select>
+    <el-radio-group v-model="val" @change="handleSelectChangeEvent">
+      <el-radio v-for="item in options" :key="item[props.value]" :label="item[props.value]">{{ item[props.label] }}
+      </el-radio>
+    </el-radio-group>
   </div>
 </template>
 <script>
 // 导入封装的props内容
 import { props, mixin } from '../basis'
+
 export default {
-  name: 'SelectComponent',
-  mixins: [mixin], // 混入 (把公共参数集中抽离出来)
+  name: 'RadioComponent',
+  mixins: [mixin], // 混入
   props: {
     ...props
   },

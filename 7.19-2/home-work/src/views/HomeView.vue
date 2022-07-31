@@ -97,23 +97,23 @@ export default {
     formatDate(data) {
       // console.log('123', data)
       const tableData = data.data
-      console.log('1', tableData)
+      // console.log('1', tableData)
       tableData.forEach((item) => {
         // console.log('item', item)
         item.gender = item.gender === '男' ? 1 : 0
       })
-      console.log('23', tableData)
+      // console.log('23', tableData)
       return tableData
     },
     // 复选框数据 拿不到值
     getCheckList() {
-      console.log('123', this.checkList)
+      // console.log('123', this.checkList)
     }
   },
   watch: {
     checkList: {
       handler(val) {
-        console.log('父', val)
+        // console.log('父', val)
       },
       deep: true
     }

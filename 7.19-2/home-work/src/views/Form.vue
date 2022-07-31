@@ -49,19 +49,45 @@ export default {
           //   { validator: validateName, trigger: 'change' }
           // ]
         },
+        // {
+        //   label: '教室1',
+        //   type: 'select',
+        //   prop: 'class_room1',
+        //   required: true,
+        //   // 给链接 请求异步接口
+        //   initRequest: true, // 请求
+        //   props: {
+        //     label: 'class_name',
+        //     value: 'id'
+        //   },
+        //   url: '/classroom/',
+        //   method: 'GET'
+        // },
         {
-          label: '教室1',
-          type: 'select',
-          prop: 'class_room1',
+          label: '交通工具',
+          type: 'radio',
+          prop: 'car',
           required: true,
-          // 给链接 请求异步接口
-          initRequest: true, // 请求
-          props: {
-            label: 'class_name',
-            value: 'id'
-          },
-          url: '/classroom/',
-          method: 'GET'
+          // 更改 options 属性  重新赋值   可以自动识别
+          props: { label: 'a', value: 'b' },
+          options: [
+            { a: '火车', b: '1' },
+            { a: '高铁', b: '2' },
+            { a: '飞机', b: '3' }
+          ]
+        },
+        {
+          label: '日期',
+          type: 'date',
+          prop: 'createDate',
+          // model: 'date',
+          placeholder: '请选择生日',
+          rangeSeparator: '至', // 间隔时间的中间 修改
+          model: 'datetimerange',
+          disabledDate: true,
+          // startPlaceholder: '请选择开始创建的日期',
+          // endPlaceholder: '请选择开始结束的日期',
+          required: true
         },
         {
           label: '食物',
@@ -98,13 +124,15 @@ export default {
           ]
         }
       ],
-      // 内容
+      // 内容 type类型
       formField: {
         phone: '13412341234',
         password: '',
         age: '',
         email: '',
-        food: []
+        food: ['1', '4'],
+        car: '1',
+        createDate: ''
       }
 
     }

@@ -43,13 +43,13 @@ files.keys().forEach((item) => {
   const key = item.split('/')
   const name = key[1]
   // const component = files(item).default
-  console.log('name', name)
+  // console.log('name', name)
   // console.log(modules[`com-${name}`])
   // 添加集成组件
-  console.log('modules', modules)
+  // console.log('modules', modules)
   modules[`com-${name}`] = files(item).default
 })
-console.log('components/control/from/index', modules)
+// console.log('components/control/from/index', modules)
 export default {
   props: {
     item: {
@@ -132,8 +132,6 @@ export default {
   mounted() {
   },
   beforeMount() {
-    // console.log('12', createRules(this.item))
-    // console.log('this.item', this.item)
     this.formItem = createRules(this.item)
     // this.formItem = this.item
     // console.log('this.formItem ', this.formItem)
