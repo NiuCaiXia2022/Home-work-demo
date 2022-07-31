@@ -5,7 +5,7 @@
       <template v-for="(item) in formItem">
 
         <!-- 1 input-->
-        <el-form-item :key="item" :rules="item.rules" :label="item.label" :prop="item.prop">
+        <el-form-item :key="item.rules" :rules="item.rules" :label="item.label" :prop="item.prop">
           <!-- <el-input v-model="field[item.prop]"></el-input> -->
           <component :value.sync="field[item.prop]" :config="item" :is="!item.type ? 'com-text' : `com-${item.type}`">
           </component>

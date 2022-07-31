@@ -24,6 +24,11 @@ const routes = [
     path: '/formview',
     name: 'formview',
     component: () => import('../views/FormView.vue')
+  }, {
+    // Upload
+    path: '/upload',
+    name: 'upload',
+    component: () => import('../views/Upload.vue')
   }
 ]
 

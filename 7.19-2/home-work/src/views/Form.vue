@@ -84,9 +84,17 @@ export default {
           placeholder: '请选择生日',
           rangeSeparator: '至', // 间隔时间的中间 修改
           model: 'datetimerange',
-          disabledDate: true,
-          // startPlaceholder: '请选择开始创建的日期',
-          // endPlaceholder: '请选择开始结束的日期',
+          format: 'yyyy-MM-dd', // 时间格式 时分秒
+          valueFormat: 'yyyy-MM-dd HH:mm:ss', // 选择时间格式
+          disabledDateRules: (time) => {
+            // return time.getTime() < new Date() // 今天之前禁用
+            return time.getTime() > new Date() - 86400000 // 今天之后禁用
+            // return time.getTime() < new Date()
+          },
+          // disabledDate: true, // 是否开启 过期时间禁用
+          // disabledToDay: true, // 是否开启 过期时间 + 今天 禁用
+          startPlaceholder: '请选择开始创建的日期',
+          endPlaceholder: '请选择开始结束的日期',
           required: true
         },
         {
@@ -147,11 +155,13 @@ export default {
     handleRest() {
       alert('表单重置完成!!!')
     },
-    //
+    // 提交
     handleSubmit() {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
+          console.log('this.formField', this.formField)
           resolve()
+          // reject()
         }, 2000)
       })
     }
