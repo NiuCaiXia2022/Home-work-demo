@@ -1,0 +1,22 @@
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* 商家销量 横向柱状图 */
+.my-every,
+.every-content,
+.every-chart {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+canvas{
+  border-radius: 20px;
+}
