@@ -1,13 +1,13 @@
 <template>
   <div class="every-content">
     <!-- 销量趋势 -->
-    <div class="title">
-      <span>我是标题</span>
-      <span>下拉箭头</span>
-      <div class="select-com">
-        <div class="select-item">我是选择1</div>
-        <div class="select-item">我是选择2</div>
-        <div class="select-item">我是选择3</div>
+    <div class="title" :style="comStyle">
+      <span>{{ '▎ ' + showTitle }}</span>
+      <span class="iconfont title-icon" :style="comStyle" @click="showSelect = !showSelect">&#xe6eb;</span>
+      <div class="select-com" v-show="showSelect" :style="maiginStyle">
+        <div class="select-item" v-for="item in selectTypes" :key="item.key" @click="handleSelect(item.key)">{{
+            item.text
+        }}</div>
       </div>
     </div>
     <div class="every-chart" ref="trend_ref"></div>
@@ -21,12 +21,47 @@ export default {
   data() {
     return {
       chartInstance: null, // 初始化数据
-      allData: null // 数据列表
+      allData: null, // 数据列表
+      showSelect: false, // 是否显示可选项
+      choiceType: 'map', // 是否显示的数据
+      titleFontSize: 0 // 标题的字体大小
     }
   },
   created() {
   },
-  computed: {},
+  computed: {
+    // 下拉框的标题
+    selectTypes() {
+      if (!this.allData) {
+        return []
+      } else {
+        // 筛选  显示的  把不现实的拎出来
+        return this.allData.type.filter(item => {
+          return item.key !== this.choiceType
+        })
+      }
+    },
+    // 标题
+    showTitle() {
+      if (!this.allData) {
+        return ''
+      } else {
+        return this.allData[this.choiceType].title
+      }
+    },
+    // 设置给标题的样式 字体大小
+    comStyle() {
+      return {
+        fontSize: this.titleFontSize + 'px'
+      }
+    },
+    // 下拉标题对齐
+    maiginStyle() {
+      return {
+        marginLeft: this.titleFontSize + 'px'
+      }
+    }
+  },
   methods: {
     //  初始化
     initChart() {
@@ -42,12 +77,12 @@ export default {
           containLabel: true // 显示Y轴 包含坐标轴的文字 距离
         },
         tooltip: { // 文字提示  背景
-          taigger: 'axis'
+          trigger: 'axis'
         },
         legend: { // 图例 标题位置
           left: 20,
           top: '15%',
-          icon: 'circle'// circle 圆形图例
+          icon: 'circle'// circle 圆形的图例
         },
         xAxis: {
           type: 'category',
@@ -60,13 +95,15 @@ export default {
       // setOption 设置 option
       this.chartInstance.setOption(initOption)
     },
-    // 获取的数据
+    // 获取接口的数据
     async getData() {
       // 获取接口数据
       const { data: res } = await this.$http.get('trend')
       console.log('接口数据', res)
-      // 保存
+      // 保存数据
       this.allData = res
+      console.log('接口数据', this.allData)
+
       // 调用处理数据
       this.updateChart()
     },
@@ -91,24 +128,24 @@ export default {
 
       // 处理数据
       const timeArr = this.allData.common.month // X轴数据
-      const valueArr = this.allData.map.data // Y轴数据
+      const valueArr = this.allData[this.choiceType].data // Y轴数据
       // map 循环  映射一个新数组
       const seriesArr = valueArr.map((item, index) => {
         return {
           name: item.name, // 跟图例的name  保持一致
           type: 'line',
           data: item.data,
-          stack: 'map', // 堆叠图
+          stack: this.choiceType, // 堆叠图
           areaStyle: { // 颜色填充  加渐变色
             color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
               { offset: 0, color: colorArr1[index] }, // 百分之0 的渐变值
-              { offset: 100, color: colorArr2[index] } // 百分之100 的渐变值
+              { offset: 1, color: colorArr2[index] } // 百分之100 的渐变值
             ])
           }
         }
       })
       // 图例数据  跟上面name  保持一致
-      const legendArr = valueArr.map((item, index) => {
+      const legendArr = valueArr.map((item) => {
         return item.name
       })
       // 数据的 Option
@@ -126,12 +163,33 @@ export default {
     },
     // 适配 屏幕分辨率
     screenAdapter() {
+      // 获取显示图标的容器 宽度
+      this.titleFontSize = this.$refs.trend_ref.offsetWidth / 100 * 3.6
       // 屏幕分辨率的 Option
-      const adapterOption = {}
+      const adapterOption = {
+        // 图例的大小变化
+        legend: {
+          itemWidth: this.titleFontSize,
+          itemHeight: this.titleFontSize,
+          itemGap: this.titleFontSize,
+          textStyle: { // 标题文字大小
+            fontSize: this.titleFontSize / 2
+          }
+        }
+      }
       // setOption 设置 option
       this.chartInstance.setOption(adapterOption)
       // 重新调用 resize
-      window.chartInstance.resize()
+      this.chartInstance.resize()
+    },
+    // 点击切换
+    handleSelect(key) {
+      console.log('key', key)
+      this.choiceType = key
+      // 调用图表数据
+      this.updateChart()
+      // 隐藏下拉框
+      this.showSelect = false
     }
 
   },
@@ -153,4 +211,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+  color: #fff;
+
+  .title-icon {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  .select-com {
+    background-color: #222733;
+  }
+
+  .select-item {
+    cursor: pointer;
+  }
+}
 </style>

@@ -1,12 +1,11 @@
 <template>
   <div class="my-seller">
 
-    TrendPage
     <MyMap></MyMap>
   </div>
 </template>
 <script>
-import MyMap from '../components/MyMap.vue'
+import MyMap from '../components/Map.vue'
 export default {
   props: {},
   components: { MyMap },
