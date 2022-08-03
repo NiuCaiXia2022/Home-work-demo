@@ -1,15 +1,13 @@
 <template>
   <div class="my-seller">
-
-    父组件
-    <MyMap></MyMap>
+    <MyRank></MyRank>
   </div>
 </template>
 <script>
-import MyMap from '../components/MyMap.vue'
+import MyRank from '../components/Rank.vue'
 export default {
   props: {},
-  components: { MyMap },
+  components: { MyRank },
   data() {
     return {}
   },

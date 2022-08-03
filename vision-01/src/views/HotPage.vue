@@ -1,15 +1,14 @@
 <template>
   <div class="my-seller">
 
-    父组件
-    <MyMap></MyMap>
+    <MyHot></MyHot>
   </div>
 </template>
 <script>
-import MyMap from '../components/MyMap.vue'
+import MyHot from '../components/Hot.vue'
 export default {
   props: {},
-  components: { MyMap },
+  components: { MyHot },
   data() {
     return {}
   },

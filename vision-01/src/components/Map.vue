@@ -1,6 +1,6 @@
 <template>
-  <div class="every-content">
-    <!-- 商家分布 -->
+  <div class="every-content" @dblclick="revertMap">
+    <!-- 商家分布  dblclick双击事件-->
     <div>提交</div>
 
     <div class="every-chart" ref="map_ref"></div>
@@ -8,7 +8,8 @@
 </template>
 <script>
 import axios from 'axios'
-
+// 地图拼音
+import { getProvinceMapInfo } from '../utlis/map_utils'
 export default {
 
   props: {},
@@ -16,8 +17,8 @@ export default {
   data() {
     return {
       chartInstance: null, // 初始化数据
-      allData: null // 数据列表
-      // titleFontSize: 0 // 字体大小
+      allData: null, // 数据列表
+      mapData: {} // 地图数据的缓存
     }
   },
   created() {
@@ -58,7 +59,36 @@ export default {
       }
       // setOption 设置 option
       this.chartInstance.setOption(initOption)
+
+      // 地图点击事件 切换省份数据
+      this.chartInstance.on('click', async arg => {
+        // console.log(arg) //中文 getProvinceMapInfo
+        const provinceInfo = getProvinceMapInfo(arg.name)
+        // console.log('中文转拼音', provinceInfo)
+
+        // 点击的省份 不存在的话发送请求
+        if (!this.mapData[provinceInfo.key]) {
+          // 请求省市接口数据
+          const res = await axios.get('http://localhost:8999' + provinceInfo.path)
+          // console.log('res', res)
+
+          // 保存点击的省份缓存
+          this.mapData[provinceInfo.key] = res.data
+
+          // 注册地图的数据  registerMap()
+          this.$echarts.registerMap(provinceInfo.key, res.data)
+        }
+
+        // 设置省份的 option
+        const changeOption = {
+          geo: {
+            map: provinceInfo.key
+          }
+        }
+        this.chartInstance.setOption(changeOption)
+      })
     },
+
     // 获取的数据
     async getData() {
       // 获取接口数据
@@ -69,6 +99,7 @@ export default {
       // 调用处理数据
       this.updateChart()
     },
+
     // 处理数据
     updateChart() {
       // 图例数据
@@ -100,6 +131,7 @@ export default {
       // setOption   设置 option
       this.chartInstance.setOption(dataOption)
     },
+
     // 适配 屏幕分辨率
     screenAdapter() {
       // 标题大小
@@ -115,8 +147,8 @@ export default {
           }
         },
         lebend: { // 图例
-          itemWidth: titleFontSize / 2,
-          itemheight: titleFontSize / 2,
+          itemWidth: titleFontSize / 2, // 图例 宽
+          itemheight: titleFontSize / 2, // 图例 高
           itemGap: titleFontSize / 2, // 图例间隔
           textStyle: { // 图例 样式
             fontSize: titleFontSize / 2
@@ -127,6 +159,17 @@ export default {
       this.chartInstance.setOption(adapterOption)
       // 重新调用 resize
       this.chartInstance.resize()
+    },
+
+    // 双击 切换中国地图
+    revertMap() {
+      const revertOption = {
+        geo: {
+          map: 'china'
+        }
+      }
+      // 重新设置 中国地图
+      this.chartInstance.setOption(revertOption)
     }
 
   },
