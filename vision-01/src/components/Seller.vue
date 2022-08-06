@@ -7,6 +7,8 @@
 </template>
 
 <script>
+// 1. 辅助函数 (组建全屏样式) 在计算属性里面调用
+import { mapState } from 'vuex'
 export default {
   props: {},
   components: {},
@@ -20,13 +22,34 @@ export default {
     }
   },
   created() {
+    // 1. 注册回调函数
+    this.$socket.registerCallBack('sellerData', this.getData)
   },
-  computed: {},
+  computed: {
+    // 2. 组建全屏样式  展开辅助函数()
+    ...mapState(['theme'])
+  },
+  watch: {
+    // 3.监听 事件 更换主题 、
+    theme() {
+      // console.log('主题切换了')
+
+      // 销毁当前图表
+      this.chartInstance.dispose()
+
+      // 重新调用 监听更换主题
+      this.initChart()
+      // 屏幕适配
+      this.screenAdapter()
+      // 更新图表展示
+      this.upDatechart()
+    }
+  },
   methods: {
     // 初始化echarts init对象
     initChart() {
       // 初始化 接收第二个参数  主题的名称
-      this.chartInstance = this.$echarts.init(this.$refs.seller_ref, 'chalk')
+      this.chartInstance = this.$echarts.init(this.$refs.seller_ref, this.theme)
 
       // 对图表初始化的控制
       // 基本配置
@@ -94,15 +117,15 @@ export default {
       })
     },
 
-    // 获取服务器数据
-    async getData() {
+    // 4.获取服务器数据
+    getData(ret) {
       // 接口 http://127.0.0.1.8888/api/seller
 
       // { data: response }  解构  之后 把data数据给 response
-      const { data: response } = await this.$http.get('seller')
+      // const { data: response } = await this.$http.get('seller')
       // console.log('请求的初始数据', response)
 
-      this.allData = response // 赋值
+      this.allData = ret // 赋值
 
       this.allData.sort((a, b) => { // 排序
         return a.value - b.value // 从大到小
@@ -207,8 +230,14 @@ export default {
   },
   // 页面渲染好调用
   mounted() {
-    // 数据
-    this.getData()
+    // 3. 发送 数据
+    // this.getData()
+    this.$socket.send({
+      action: 'getData',
+      socketType: 'sellerData',
+      chartName: 'seller',
+      value: ''
+    })
     // dom 元素加载完 开始初始化图表
     this.initChart()
     // 监听窗口大小 适配
@@ -222,6 +251,8 @@ export default {
     clearInterval(this.timerId)
     // 取消监听
     window.removeEventListener('resize', this.screenAdapter)
+    // 2. 取消注册回调
+    this.$socket.unRegisterCallBack('sellerData')
   }
 }
 </script>

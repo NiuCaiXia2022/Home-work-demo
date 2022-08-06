@@ -1,8 +1,7 @@
 <template>
   <div class="every-content" @dblclick="revertMap">
     <!-- 商家分布  dblclick双击事件-->
-    <div>提交</div>
-
+    <!-- <div>提交</div> -->
     <div class="every-chart" ref="map_ref"></div>
   </div>
 </template>
@@ -10,6 +9,9 @@
 import axios from 'axios'
 // 地图拼音
 import { getProvinceMapInfo } from '../utlis/map_utils'
+//  1. 引入 vuex  辅助函数
+import { mapState } from 'vuex'
+
 export default {
 
   props: {},
@@ -22,13 +24,35 @@ export default {
     }
   },
   created() {
+    // 1. 注册 回调函数
+    this.$socket.registerCallBack('mapData', this.getData)
   },
-  computed: {},
+  computed: {
+    // 2. 展开 调用
+    ...mapState(['theme'])
+  },
+  watch: {
+    // 3.监听辅助函数
+    theme() { // 销毁图表数据  在重新初始化 屏幕适配 更新数据
+      console.log('地图', '主题切换了')
+
+      // 4.图表数据   销毁
+      this.chartInstance.dispose()
+      // 5. 更新数据
+      this.initChart()
+      // 7. 屏幕适配
+      this.screenAdapter()
+      //  8. 更新数据
+      this.updateChart()
+    }
+  },
   methods: {
     //  初始化
     async initChart() {
       // 初始化  第二个参数  配置的主题
-      this.chartInstance = this.$echarts.init(this.$refs.map_ref, 'chalk')
+      // 6. 更改配置的主题
+      // this.chartInstance = this.$echarts.init(this.$refs.map_ref, 'chalk')
+      this.chartInstance = this.$echarts.init(this.$refs.map_ref, this.theme)
       // 获取地图的数据 在文件的atatic的map/china.json
       //  http://localhost:8999/static/map/china.json
       const res = await axios.get('http://localhost:8999/static/map/china.json')
@@ -90,11 +114,11 @@ export default {
     },
 
     // 获取的数据
-    async getData() {
+    getData(ret) {
       // 获取接口数据
-      const { data } = await this.$http.get('map')
-      this.allData = data
-      console.log('数据', this.allData)
+      // const { data } = await this.$http.get('map')
+      this.allData = ret
+      // console.log('数据', this.allData)
       // 保存
       // 调用处理数据
       this.updateChart()
@@ -176,8 +200,14 @@ export default {
   mounted() {
     // 初始化
     this.initChart()
-    // 获取数据
-    this.getData()
+    // 3.获取数据
+    // this.getData()
+    this.$socket.send({
+      action: 'getData',
+      socketType: 'mapData',
+      chartName: 'map',
+      value: ''
+    })
     // 监听屏幕分辨率 事件
     window.addEventListener('resize', this.screenAdapter)
     // 屏幕分辨率 事件
@@ -186,6 +216,8 @@ export default {
   destroyed() {
     // 取消监听屏幕分辨率
     window.removeEventListener('resize', this.screenAdapter)
+    // 2. 取消 回调函数
+    this.$socket.unRegisterCallBack('mapData')
   }
 }
 </script>

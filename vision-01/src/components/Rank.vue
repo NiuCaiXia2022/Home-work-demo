@@ -2,13 +2,28 @@
   <div class="every-content">
     <!-- 销量排行 -->
     <div class="every-chart" ref="rank_ref"></div>
-    子组件
   </div>
 </template>
 <script>
+// 1. 引入vuex 辅助函数
+import { mapState } from 'vuex'
 export default {
   props: {},
-  components: {},
+  components: {
+  },
+  watch: {
+    // 3. 监听 vuex 数据改动
+    theme() {
+      // 4. 销毁实例
+      this.chartInstance.dispose()
+      // 5. 初始化
+      this.initChart()
+      // 7. 屏幕适配
+      this.screenAdapter()
+      // 8. 数据更新
+      this.updateChart()
+    }
+  },
   data() {
     return {
       chartInstance: null, // 初始化数据
@@ -19,13 +34,20 @@ export default {
     }
   },
   created() {
+    // 1. 注册 回调函数
+    this.$socket.registerCallBack('rankData', this.getData)
   },
-  computed: {},
+  computed: {
+    // 2. 计算属性 监听vuex
+    ...mapState(['theme'])
+  },
   methods: {
     //  初始化
     initChart() {
       // 第二个参数 是主题名字
-      this.chartInstance = this.$echarts.init(this.$refs.rank_ref, 'chalk')
+      // 6. 配置主题
+      // this.chartInstance = this.$echarts.init(this.$refs.rank_ref, 'chalk')
+      this.chartInstance = this.$echarts.init(this.$refs.rank_ref, this.theme)
       // 基础数据 option
       const initOption = {
         title: {
@@ -59,13 +81,13 @@ export default {
       this.chartInstance.setOption(initOption)
     },
 
-    // 获取的数据
-    async getData() {
+    // 4.  获取的数据
+    getData(ret) {
       // 获取接口数据
-      const { data } = await this.$http.get('rank')
+      // const { data } = await this.$http.get('rank')
 
       // 保存
-      this.allData = data
+      this.allData = ret
       // console.log('this.allData', this.allData)
 
       // 排序
@@ -84,7 +106,7 @@ export default {
       })
       // 鼠标离开事件
       this.chartInstance.on('mouseout', () => {
-        this.startInterval() // 清楚定时器
+        this.startInterval() // 开启定时器
       })
     },
 
@@ -181,7 +203,7 @@ export default {
       if (this.timerId) {
         clearInterval(this.timerId)
       }
-      this.timer = setInterval(() => {
+      this.timerId = setInterval(() => {
         this.startValue++
         this.endValue++
         if (this.endValue > this.allData.length - 1) {
@@ -197,8 +219,15 @@ export default {
   mounted() {
     // 初始化
     this.initChart()
-    // 获取数据
-    this.getData()
+    // 3. 获取数据
+    // this.getData()
+    this.$socket.send({
+      action: 'getData',
+      socketType: 'rankData',
+      chartName: 'rank',
+      value: ''
+    })
+
     // 监听屏幕分辨率 事件
     window.addEventListener('resize', this.screenAdapter)
     // 屏幕分辨率 事件
@@ -209,6 +238,8 @@ export default {
     window.removeEventListener('resize', this.screenAdapter)
     // 清除定时器
     clearInterval(this.timerId)
+    // 2. 取消 回调函数
+    this.$socket.unRegisterCallBack('rankData')
   }
 }
 </script>

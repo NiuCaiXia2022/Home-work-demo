@@ -15,6 +15,10 @@
   </div>
 </template>
 <script>
+// 1. 引入 vuex  辅助函数
+import { mapState } from 'vuex'
+// 主题文件 样式切换
+import { getThemeValue } from '../utlis/theme_utils'
 export default {
   props: {},
   components: {},
@@ -28,8 +32,12 @@ export default {
     }
   },
   created() {
+    // 组件创建完成之后 进行回调函数注册
+    this.$socket.registerCallBack('trendData', this.getData)
   },
   computed: {
+    // 2. 计算属性  展开辅助函数
+    ...mapState(['theme']),
     // 下拉框的标题
     selectTypes() {
       if (!this.allData) {
@@ -52,7 +60,8 @@ export default {
     // 设置给标题的样式 字体大小
     comStyle() {
       return {
-        fontSize: this.titleFontSize + 'px'
+        fontSize: this.titleFontSize + 'px',
+        color: getThemeValue(this.theme).titleColor
       }
     },
     // 下拉标题对齐
@@ -62,11 +71,25 @@ export default {
       }
     }
   },
+  watch: {
+    // 3.监听 vuex的theme
+    theme() {
+      // 4.销毁实例
+      this.chartInstance.dispose()
+      // 5. 初始化
+      this.initChart()
+      // 7、屏幕适配
+      this.screenAdapter()
+      // 8、更新数据
+      this.updateChart()
+    }
+  },
   methods: {
     //  初始化
     initChart() {
       // 初始化  第二个参数  配置的主题
-      this.chartInstance = this.$echarts.init(this.$refs.trend_ref, 'chalk')
+      // 6、配置主题
+      this.chartInstance = this.$echarts.init(this.$refs.trend_ref, this.theme)
       // 基础数据 option
       const initOption = {
         grid: { //  直角坐标轴 大小的  距离设置
@@ -96,17 +119,18 @@ export default {
       this.chartInstance.setOption(initOption)
     },
     // 获取接口的数据
-    async getData() {
+    getData(ret) {
       // 获取接口数据
-      const { data: res } = await this.$http.get('trend')
-      console.log('接口数据', res)
+      // const { data: res } = await this.$http.get('trend')
+      // console.log('接口数据', res)
       // 保存数据
-      this.allData = res
+      this.allData = ret
       console.log('接口数据', this.allData)
 
       // 调用处理数据
       this.updateChart()
     },
+
     // 处理数据
     updateChart() {
       // 半透明颜色值
@@ -161,6 +185,7 @@ export default {
       // setOption   设置 option
       this.chartInstance.setOption(dataOption)
     },
+
     // 适配 屏幕分辨率
     screenAdapter() {
       // 获取显示图标的容器 宽度
@@ -182,6 +207,7 @@ export default {
       // 重新调用 resize
       this.chartInstance.resize()
     },
+
     // 点击切换
     handleSelect(key) {
       console.log('key', key)
@@ -197,7 +223,14 @@ export default {
     // 初始化
     this.initChart()
     // 获取数据
-    this.getData()
+    // this.getData() // 发送数据给服务器
+    this.$socket.send({
+      action: 'getData',
+      socketType: 'trendData',
+      chartName: 'trend',
+      value: ''
+    })
+
     // 监听屏幕分辨率 事件
     window.addEventListener('resize', this.screenAdapter)
     // 屏幕分辨率 事件
@@ -206,6 +239,8 @@ export default {
   destroyed() {
     // 取消监听屏幕分辨率
     window.removeEventListener('resize', this.screenAdapter)
+    // 组件销毁时  取消注册回调
+    this.$socket.unRegisterCallBack('trendData')
   }
 }
 </script>

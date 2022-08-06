@@ -2,7 +2,6 @@
   <div class="every-content">
     <!-- 销量趋势 -->
     <div class="every-chart" ref="trend_ref"></div>
-    子组件
   </div>
 </template>
 <script>

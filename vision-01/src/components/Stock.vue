@@ -5,6 +5,8 @@
   </div>
 </template>
 <script>
+// 1. vuex 辅助函数
+import { mapState } from 'vuex'
 export default {
   props: {},
   components: {},
@@ -17,12 +19,33 @@ export default {
     }
   },
   created() {
+    // 1. 注册回调函数
+    this.$socket.registerCallBack('stockData', this.getData)
   },
-  computed: {},
+  computed: {
+    // 2.计算属性  展开
+    ...mapState(['theme'])
+  },
+  watch: {
+    // 3. 监听 vuex 的themem
+    theme() {
+      // 4.销毁实例
+      this.chartInstance.dispose()
+      // 5.初始化
+      this.initChart()
+      // 7.屏幕适配
+      this.screenAdapter()
+      // 8.更新数据
+      this.updateChart()
+    }
+
+  },
   methods: {
     //  初始化
     initChart() {
-      this.chartInstance = this.$echarts.init(this.$refs.stock_ref, 'chalk')
+      // 6. 修改配置主题
+      // this.chartInstance = this.$echarts.init(this.$refs.stock_ref, 'chalk')
+      this.chartInstance = this.$echarts.init(this.$refs.stock_ref, this.theme)
       // 基础数据 option
       const initOption = {
         title: { // 标题
@@ -44,14 +67,14 @@ export default {
       })
     },
 
-    // 获取的数据
-    async getData() {
+    // 4. 获取的数据
+    getData(ret) {
       // 获取接口数据
-      const { data } = await this.$http.get('stock')
-      console.log('data', data)
+      // const { data } = await this.$http.get('stock')
+      // console.log('data', data)
 
       // 保存
-      this.allData = data
+      this.allData = ret
       // 调用处理数据
       this.updateChart()
       // 开启定时器
@@ -83,7 +106,7 @@ export default {
       const seriesArr = showData.map((item, index) => {
         return {
           type: 'pie', // 类型 饼图
-          radius: [110, 100], //  饼图 内外圈大小
+          // radius: [110, 100], //  饼图 内外圈大小
           center: centserArr[index], // 位置坐标
           hoverAnimation: false, // 关闭鼠标移入 动画取消
           labelLine: { // 指示线  取消
@@ -132,7 +155,7 @@ export default {
     screenAdapter() {
       // 字体大小
       const titleFontSize = this.$refs.stock_ref.offsetWidth / 100 * 3.6
-      const innerRadius = titleFontSize * 2 // 内圆半径
+      const innerRadius = titleFontSize * 2.8 // 内圆半径
       const outterRadius = innerRadius * 1.125 // 外圆半径
       // 屏幕分辨率的 Option
       const adapterOption = {
@@ -201,12 +224,19 @@ export default {
       }, 3000)
     }
 
+    // socket_servie.js
   },
   mounted() {
     // 初始化
     this.initChart()
-    // 获取数据
-    this.getData()
+    // 3.获取数据  发送数据给服务器
+    // this.getData()
+    this.$socket.send({
+      action: 'getData',
+      socketType: 'stockData',
+      chartName: 'stock',
+      value: ''
+    })
     // 监听屏幕分辨率 事件
     window.addEventListener('resize', this.screenAdapter)
     // 屏幕分辨率 事件
@@ -217,6 +247,8 @@ export default {
     window.removeEventListener('resize', this.screenAdapter)
     // 取消定时器
     clearInterval(this.timeId)
+    // 2. 取消 注册的回调函数
+    this.$socket.unRegisterCallBack('stockData')
   }
 }
 </script>
