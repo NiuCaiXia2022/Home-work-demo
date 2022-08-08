@@ -1,0 +1,40 @@
+/* pages/shop/shop.wxss */
+.center {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .swiper-warp {
+  height: 320rpx;
+} */
+
+/* .main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.main .main-buttom{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 320rpx;
+  height: 320rpx;
+  background-color: #feb01a;
+  border: 25rpx solid #ffe5aa;
+  border-radius: 50%;
+  margin-top: 80rpx;
+}
+
+.main .main-buttom text{
+  color: #fff;
+  margin-top: 5rpx;
+  width: 180rpx;
+  text-align: center;
+
+}
+.main-image{
+  width: 200rpx;
+  height: 180rpx;
+} */

@@ -1,0 +1,15 @@
+/* component/i-swiper/i-swiper.wxss */
+
+.swiper-warp {
+  height: 320rpx;
+}
+
+swiper {
+  height: 100%;
+  width: 100%;
+}
+
+swiper image {
+  width: 100%;
+  height: 100%;
+}

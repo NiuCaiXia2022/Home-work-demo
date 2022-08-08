@@ -1,0 +1,13 @@
+<!--pages/shop/shop.wxml-->
+<view class="center">
+
+  <!-- swiper 轮播图 -->
+  <!-- 注册子组件   。json 的  "usingComponents": {子组件名: 路径}-->
+  <!-- 父传子   子组件标签 data="{{bannerData}}" 传值 不加冒号   -->
+  <i-swiper data="{{bannerData}}"></i-swiper>
+
+  <!-- main -->
+  <!-- 多个组件使用 要全局注册 app.json -->
+  <i-button></i-button>
+  
+</view>

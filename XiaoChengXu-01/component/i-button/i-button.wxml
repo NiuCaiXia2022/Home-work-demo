@@ -1,0 +1,9 @@
+<!--component/i-button/i-button.wxml-->
+<view class="main">
+
+<view class="main-buttom" bindtap="handleScanCode">
+  <image class="main-image" src="../../images/qrcode.png"></image>
+  <text>请扫描商品条形码</text>
+</view>
+
+</view>
