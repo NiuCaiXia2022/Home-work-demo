@@ -24,12 +24,12 @@ Component({
       wx.scanCode({
         onlyFromCamera: true,// 只允许从相机扫码
         success:res=>{
-          console.log(1);
-
+          console.log(1,res.result);
+          // 子传父
+          this.triggerEvent('getCodeInfo',res.result)
         },
         fail:err=>{
-          console.log(2);
-
+          console.log(2,err);
         },
         // complete:a=>{} 不管成功或失败都会返回
       })

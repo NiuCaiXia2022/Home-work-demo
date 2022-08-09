@@ -53,7 +53,7 @@ class Http {
   }
   // static _showError(code, msg) {
   _showError(code, msg) {
-    let titile = ''
+    let title = ''
     title = exceptionMessage[code] || msg || '发生未知错误'
     wx.showToast({
       title,

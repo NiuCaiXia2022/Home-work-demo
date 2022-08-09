@@ -1,5 +1,6 @@
 // 本地封装
 
+import {field} from '../config/config'
 
 
 class  Storage{
@@ -22,6 +23,17 @@ class  Storage{
   // 清空
   static remoteAll() {
     wx.clearStorageSync()
+  }
+
+
+  // 存token
+  static setToken(token){
+    wx.setStorageSync(field.loginCredentials, token)
+  }
+
+  // 存用户信息
+  static setUserInfo(userInfo){
+    wx.setStorageSync(field.userInfoKey, userInfo)
   }
 
 }

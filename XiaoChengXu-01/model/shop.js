@@ -15,6 +15,18 @@ class ShopModel extends Http{
       }
     })
   }
+
+  //  商品信息 http://weixin.itying.com/api/getProduct
+  static getShopInfo(qcode){
+    return Http.request({
+      url:'getProduct',
+      name:'api2',
+      method:'GET',
+      data:{
+        qcode
+      }
+    })
+  }
 }
 
 export default ShopModel

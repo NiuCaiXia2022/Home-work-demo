@@ -7,7 +7,7 @@
   <i-swiper data="{{bannerData}}"></i-swiper>
 
   <!-- main -->
-  <!-- 多个组件使用 要全局注册 app.json -->
-  <i-button></i-button>
+  <!-- 多个组件使用 要全局注册 app.json 接收子组件的值 bind:getCodeInfo="getShopCode"-->
+  <i-button bind:getCodeInfo="getShopCode"></i-button>
   
 </view>
