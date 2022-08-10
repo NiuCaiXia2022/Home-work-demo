@@ -8,6 +8,9 @@
 
   <!-- main -->
   <!-- 多个组件使用 要全局注册 app.json 接收子组件的值 bind:getCodeInfo="getShopCode"-->
-  <i-button bind:getCodeInfo="getShopCode"></i-button>
-  
+  <i-button count="{{cartList.length}}" status="{{cartList.length>0 ?true:false}}"  bind:getCodeInfo="getShopCode" ></i-button>
+
+  <!-- 结算按钮 -->
+  <!-- <i-button wx:else=""></i-button> -->
+
 </view>

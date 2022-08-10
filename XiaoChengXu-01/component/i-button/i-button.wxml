@@ -1,9 +1,11 @@
 <!--component/i-button/i-button.wxml-->
 <view class="main">
 
-<view class="main-buttom" bindtap="handleScanCode">
-  <image class="main-image" src="../../images/qrcode.png"></image>
-  <text>请扫描商品条形码</text>
-</view>
+  <view class="main-buttom" bindtap="handleScanCode">
+    <image class="main-image" src="{{status? emptyStatusUrl:noEmptyStatusUrl}}"></image>
+    <text class="text"> {{status?'去结算':'请扫描商品条形码'}}</text>
+    <text class="cicle" wx:if="{{count>0}}">{{count}}</text>
+  </view>
+
 
 </view>
