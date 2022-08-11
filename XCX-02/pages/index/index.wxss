@@ -1,0 +1,52 @@
+/**index.wxss**/
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+.container view {
+  width: 100rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+}
+.container view:nth-child(1){
+  background-color: rgb(216, 81, 81);
+}
+.container view:nth-child(2){
+  background-color: rgb(81, 216, 126);
+  
+}
+.container view:nth-child(3){
+  background-color: rgb(19, 36, 189);
+  
+}
+
+/*  */
+.indicator{
+  margin: 40rpx 0;
+}
+
+/*  */
+.swiper-A{
+  width: 100vw;
+  height: 100rpx;
+  background-color: rgb(148, 81, 179);
+  margin: 40rpx 0;
+}
+.swiper-A .item view{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height:50rpx;
+  color: #fff;
+}
+
+.swiper-A .item:nth-child(1){
+  background-color: rgb(155, 50, 55);
+}
+.swiper-A .item:nth-child(2){
+  background-color: rgb(174, 41, 207);
+}
+.swiper-A .item:nth-child(3){
+  background-color: rgb(188, 223, 61);
+}

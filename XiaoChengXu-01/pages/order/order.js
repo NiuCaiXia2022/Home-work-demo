@@ -1,10 +1,30 @@
+
+// 本地
+import Storage from "../../utils/storage"
+
 // pages/order/order.js
 Page({
 
-  /**
-   * 页面的初始数据
-   */
+
+  // 获取本地结算的商品
+  getResultShop() {
+    const resultShop = Storage.get('carts')
+    const firstShop=JSON.parse(JSON.stringify(resultShop))
+    firstShop.length=1
+    console.log('1', firstShop, resultShop);
+    this.setData({
+      resultShop,
+      firstShop
+    })
+
+  },
+
+
+
+  // 页面的初始数据
   data: {
+    resultShop: [],//数据列表
+    firstShop: [],// 数据的第一条
 
   },
 
@@ -12,14 +32,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    // 默认调用
+    this.getResultShop()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
   },
 
   /**

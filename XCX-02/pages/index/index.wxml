@@ -1,0 +1,41 @@
+<!--index.wxml-->
+
+<view class="container">组件</view>
+
+<view class="container">
+  <view>A</view>
+  <view>B</view>
+  <view>C</view>
+</view>
+
+<view class="indicator">
+  <view> indicator-dots 是否显示指示点</view>
+  <view>autoplay 自动切换</view>
+  <view>interval 切换时间间隔</view>
+  <view>circular 衔接滑动</view>
+</view>
+
+<swiper class="swiper-A" indicator-dots="true" autoplay interval="1000" circular>
+  <swiper-item class="item">
+    <view>a</view>
+  </swiper-item>
+  <swiper-item class="item">
+    <view>b</view>
+  </swiper-item>
+  <swiper-item class="item">
+    <view>c</view>
+  </swiper-item>
+</swiper>
+
+<view class="indicator">
+  <view>text 的 selectable 属性支持长按选中</view>
+  手机号长按选中 ：<text selectable>12312341234</text>
+</view>
+
+<view class="indicator">
+  <view>副文本 rich-text 的 nodes 属性渲染html</view>
+  <rich-text nodes="<h1 style='color:red';>标题</h1>"></rich-text>
+</view>
+
+
+<view class="indicator"></view>

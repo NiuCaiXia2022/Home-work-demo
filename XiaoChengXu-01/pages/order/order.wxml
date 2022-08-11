@@ -1,2 +1,61 @@
 <!--pages/order/order.wxml-->
-<text>pages/order/order.wxml</text>
+<view class="center">
+
+  <view class="top">
+
+    <!-- 列表 -->
+    <view class="li" wx:for="{{firstShop}}" wx:key="index">
+      <view class="li-item">
+        <view class="li-title">
+          <text class="li-title-top">{{item.title}}</text>
+          <text class="li-title-plice color">￥{{item.price}}</text>
+        </view>
+        <view class="li-num">x{{item.num}}</view>
+      </view>
+    </view>
+
+
+    <view class="com commodity">
+      <view>共{{resultShop.length}}件商品 <text>展开</text></view>
+    </view>
+
+
+    <view class="com balance">
+      <view>余额 <text class="color">(￥4)</text></view>
+      <!-- 开关 -->
+      <switch color="#ff9903"></switch>
+    </view>
+
+
+    <view class="com amount">
+      <view>商品金额</view>
+      <view class="color">￥15.5</view>
+    </view>
+
+
+    <view class="com deduction">
+      <view>商品减扣</view>
+      <view class="color">-￥4</view>
+    </view>
+
+
+    <view class="payment">
+      <view></view>
+      <view>请支付完成后携带商品</view>
+    </view>
+
+
+  </view>
+
+  <view class="bottom">
+    <view class="bottom-box">
+      <view class="bottom-left">
+        <view>实际支付:</view>
+        <text class="color">￥11.5</text>
+      </view>
+      <view class="bottom-right">确认支付</view>
+    </view>
+
+  </view>
+
+</view>
