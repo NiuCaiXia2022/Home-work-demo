@@ -23,7 +23,7 @@
     </view>
     <view class="settlement-bottom">
       <view class="settlement-bottom-left" bindtap="handleAdd">继续添加</view>
-      <view class="settlement-bottom-right">去结算({{cartList.length}})</view>
+      <view class="settlement-bottom-right" bindtap="handleSetTlement">去结算({{cartList.length}})</view>
     </view>
 
   </view>

@@ -1,0 +1,95 @@
+.center {
+  display: flex;
+  flex-direction: column;
+}
+
+.color {
+  color: #ff333f;
+}
+
+/* success-top */
+.success-top {
+  height: 400rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success-top .icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150rpx;
+  height: 170rpx;
+  margin: 60rpx 0;
+  justify-content: space-around;
+}
+
+.success-top .icon image {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.success-top .back {
+  background-color: #ffb71a;
+  padding: 15rpx 40rpx;
+  border-radius: 10rpx;
+  color: #fff;
+}
+
+/* success-buttom */
+.success-buttom {
+  flex: 1;
+}
+
+.success-buttom >.title {
+  text-align: center;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #ccc;
+}
+
+.success-buttom .title text {
+  padding: 0 10rpx;
+  display: inline-block;
+  line-height: 40rpx;
+  vertical-align: middle;
+}
+.success-buttom .box{
+  width: 100vw;
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+.success-buttom .item{
+}
+
+.success-buttom .box image {
+  margin-top: 30rpx;
+  height: 450rpx;
+}
+
+.success-buttom .item .item-title{
+  color:#9b9a9c;
+}
+
+.success-buttom .item .item-pay{
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+} 
+
+.success-buttom .item .item-pay text:nth-child(1){
+  color:#9b9a9c;
+}
+
+.success-buttom .item .color{
+  font-size: 40rpx;
+  margin-bottom: 20rpx;
+}
+
+.success-buttom .item .item-pay text:nth-child(2){
+  background-color: #ff333f;
+  padding: 10rpx 30rpx;
+  color: #fff;
+  border-radius: 10rpx;
+  margin-right: 30rpx;
+}

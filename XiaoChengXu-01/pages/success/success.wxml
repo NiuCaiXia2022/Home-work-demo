@@ -1,0 +1,33 @@
+<!-- 支付成功 -->
+
+<view class="center">
+  <!-- top -->
+  <view class="success-top">
+    <view class="icon">
+      <image src="../../images/face.png"></image>
+      <text>支付成功</text>
+    </view>
+    <view class="back" bindtap="handleGoBack">返回首页</view>
+  </view>
+  <!-- buttom -->
+  <view class="success-buttom">
+    <view class="title">
+      <text class="color">*</text>
+      <text>你可能喜欢</text>
+      <text class="color">*</text>
+    </view>
+    <view class="box">
+      <image src="/images/00.png"></image>
+      <view class="item">
+        <view class="item-title">海南现摘芒果</view>
+        <view class="color">￥29.9</view>
+        <view class="item-pay"> 
+        <text>销量 201件</text><text>立即购买</text>
+        </view>
+      </view>
+
+    </view>
+
+  </view>
+
+</view>
