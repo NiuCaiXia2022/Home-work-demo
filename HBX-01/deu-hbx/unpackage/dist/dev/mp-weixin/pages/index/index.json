@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "i-search-bar": "/components/i-search-bar/i-search-bar",
+    "i-nav-bar": "/components/i-nav-bar/i-nav-bar",
+    "i-coupon-bar": "/components/i-coupon-bar/i-coupon-bar",
+    "i-dough-bar": "/components/i-dough-bar/i-dough-bar"
+  }
+}

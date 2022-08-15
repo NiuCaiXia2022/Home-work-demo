@@ -1,0 +1,19 @@
+/* 主背景色 */
+
+.bg-main{
+	background-color: #5ccc84;
+}
+
+/* 主文字色 */
+.text-main{
+	color: rgb(92, 204, 132);
+}
+
+/* 设置页面高度为100% */
+page{
+	height: 100%;
+}
+.content{
+	height : 100%;
+	padding:0;
+}

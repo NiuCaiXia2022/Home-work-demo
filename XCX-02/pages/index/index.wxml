@@ -15,6 +15,8 @@
   <view>circular 衔接滑动</view>
 </view>
 
+<scroll-view scroll-y ></scroll-view>
+
 <swiper class="swiper-A" indicator-dots="true" autoplay interval="1000" circular>
   <swiper-item class="item">
     <view>a</view>
@@ -37,5 +39,14 @@
   <rich-text nodes="<h1 style='color:red';>标题</h1>"></rich-text>
 </view>
 
+<button>普通按钮</button>
+<button type="primary" plain>绿色按钮</button>
+<button type="default" plain> 绿字按钮</button>
+<button type="warn"> 红字按钮</button>
+
+<button type="warn" size="default"> 1</button>
+<button type="warn" size="mini"> 2</button>
 
 <view class="indicator"></view>
+
+<image src="../../image/00.png"  mode="aspectFill"></image>

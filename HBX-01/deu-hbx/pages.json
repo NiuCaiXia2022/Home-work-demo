@@ -1,0 +1,57 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}
+	    ,{
+            "path" : "pages/learn/learn",
+            "style" :                                                                                    
+            {
+                // "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my/my",
+            "style" :                                                                                    
+            {
+            }
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "在线教育",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar":{
+		"color":"#bbbac7",
+		"selectedColor": "#2c2c2c",
+		"backgroundColor": "",
+		"list": [
+			{
+				"iconPath": "static/tabbar/index.png",
+				"pagePath": "pages/index/index",
+				"selectedIconPath": "static/tabbar/index_selected.png",
+				"text": "首页"
+			},
+			{
+				"iconPath": "static/tabbar/learn.png",
+				"pagePath": "pages/learn/learn",
+				"selectedIconPath": "static/tabbar/learn_selected.png",
+				"text": "学习"
+			},
+			{
+				"iconPath": "static/tabbar/my.png",
+				"pagePath": "pages/my/my",
+				"selectedIconPath": "static/tabbar/my_selected.png",
+				"text": "我的"
+			}
+		]
+	}
+}

@@ -1,0 +1,49 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 拼团 */
+.dough-box {
+	width: 100%;
+	box-sizing: border-box;
+}
+.dough-img {
+	width: 340rpx;
+	height: 190rpx;
+}
+.dough-item {
+	width: 48%;
+}
+.dough-item>._h3 {
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
