@@ -7,34 +7,43 @@
 					"titleNView": false
 				}
 			}
+		}, {
+			"path": "pages/learn/learn",
+			"style": {
+				// "enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/my/my",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				},
+				"navigationBarBackgroundColor": "#5ccc84",
+				"navigationBarTitleText": "我的",
+				"navigationBarTextStyle": "white"
+			}
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+
 		}
-	    ,{
-            "path" : "pages/learn/learn",
-            "style" :                                                                                    
-            {
-                // "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/my/my",
-            "style" :                                                                                    
-            {
-            }
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "在线教育",
+		// "navigationBarTitleText": "在线教育",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"tabBar":{
-		"color":"#bbbac7",
+	"tabBar": {
+		"color": "#bbbac7",
 		"selectedColor": "#2c2c2c",
 		"backgroundColor": "",
-		"list": [
-			{
+		"list": [{
 				"iconPath": "static/tabbar/index.png",
 				"pagePath": "pages/index/index",
 				"selectedIconPath": "static/tabbar/index_selected.png",

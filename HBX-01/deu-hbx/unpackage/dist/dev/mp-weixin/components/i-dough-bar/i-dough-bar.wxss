@@ -28,22 +28,28 @@
 
 
 
+
+
+
+
+
+
+
+
+
 /* 拼团 */
-.dough-box {
-	width: 100%;
-	box-sizing: border-box;
-}
-.dough-img {
-	width: 340rpx;
-	height: 190rpx;
+.coupon {
+	width: 310rpx;
+	height: 280rpx;
+	display: inline-block;
+	margin-right: 30rpx;
 }
 .dough-item {
-	width: 48%;
+	width: 320rpx;
+	height: 180rpx;
 }
-.dough-item>._h3 {
+.dough-item image {
 	width: 100%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	height: 100%;
 }
 

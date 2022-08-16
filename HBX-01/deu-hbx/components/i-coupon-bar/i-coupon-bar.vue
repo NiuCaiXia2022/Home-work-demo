@@ -1,53 +1,62 @@
 <template>
 	<!-- 优惠卷组件  coupon -->
-	<view class="p-2 coupon-box ">
+	<view class="p-2 ">
 		<scroll-view scroll-x="true" class="scroll-row ">
-			<view v-for="i in 3" :key="i" class=" flex coupon-item text-lighttext-lighttext-light">
-				<view class="bg-warning flex flex-column p-2 text-light ">
-					<text>￥100</text>
-					<text class="font">满￥200可用</text>
+
+			<view v-for="(item,index) in data" :key="index" class="conpon" style="width:550rpx;">
+
+				<view>
+					<text>￥{{item.price}}</text>
+					<text class="font">{{item.value.title}}</text>
 				</view>
-				<view hover-class="bg-hover-warning  " class="text-light coupon-text  bg-warning flex pr-2 pl-2"
-					style="line-height: 130rpx;">
-					领取
-				</view>
+				<view class="font">领取</view>
+				
 			</view>
 		</scroll-view>
 	</view>
-	
-	
-	
+
+
+
 </template>
 
 <script>
 	export default {
-		name:"i-coupon-bar",
+		name: "i-coupon-bar",
+		props: {
+			data: Array
+		},
 		data() {
 			return {
-				
+
 			};
 		}
 	}
 </script>
 
 <style>
-	.scroll-row{
-		height: 130rpx;
-		width: 100%;
-		display: flex;
-	}
-
-	.coupon-box {
-		width: 1000rpx;
-		height: 130rpx;
-	}
-
-	.coupon-item {
-		height: 130rpx;
+	.conpon{
 		width: 310rpx;
+		display: inline-flex;
+		color: #fff;
+		margin-right: 30rpx;
 	}
-
-	.coupon-text {
-		border-left: 1px dashed #FFF;
+	
+	.conpon>view:first-child{
+		padding: 20rpx 30rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		border-right: 4rpx dashed;
+		background-color: #d39e00;
+	}
+	
+	.conpon>view:last-child{
+		width: 120rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 30rpx !important;
+		background-color: #ffc107;
 	}
 </style>

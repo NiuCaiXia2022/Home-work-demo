@@ -2,12 +2,12 @@
   "pages": [
     "pages/index/index",
     "pages/learn/learn",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/login/login"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "在线教育",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },

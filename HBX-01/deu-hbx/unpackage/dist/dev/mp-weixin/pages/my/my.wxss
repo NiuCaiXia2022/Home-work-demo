@@ -1,0 +1,161 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 背景 */
+.home-bg {
+	background-color: #5ccc84;
+	height: 175px;
+	width: 375px;
+	border-bottom-left-radius: 50px;
+	border-bottom-right-radius: 50px;
+	position: fixed;
+	left: 0;
+	right: 0;
+}
+/* 头部 */
+.top {
+	height: 60rpx;
+	background-color: #5ccc84;
+	text-align: center;
+}
+/* 内容 */
+.header {
+	background-color: #5ccc84;
+	color: #fff;
+}
+.header-left image {
+	width: 120rpx;
+	height: 120rpx;
+}
+/* 内容 */
+/* 导航 */
+.nav {
+	height: 200rpx;
+	box-sizing: border-box;
+}
+.nav-box {
+	background-color: #fff;
+}
+/* 列表 */
+.list-item {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	padding: 12px 15px;
+	padding-left: 15px;
+	flex: 1;
+	overflow: hidden;
+	border-bottom: #bebebe solid 2rpx;
+}
+

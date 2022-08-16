@@ -1,0 +1,16 @@
+
+swiper {
+	height: 300rpx;
+	width: 100%;
+}
+swiper-item {
+	display: block;
+	height: 300rpx;
+	line-height: 300rpx;
+	text-align: center;
+}
+.swiper-list {
+	margin-top: 40rpx;
+	margin-bottom: 0;
+}
+
