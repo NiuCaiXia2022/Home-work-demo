@@ -2629,6 +2629,24 @@ function normalizeComponent (
 
 /***/ }),
 
+/***/ 114:
+/*!*********************************************************************!*\
+  !*** E:/P11/home-work/Home-work/HBX-01/deu-hbx/config/exception.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //  自定义信息提示
+
+var exceptionMessage = {
+  200: '请求地址错误' };var _default =
+
+
+exceptionMessage;exports.default = _default;
+
+/***/ }),
+
 /***/ 18:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
@@ -3489,6 +3507,191 @@ var http = function http(data) {
 
 http;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 22:
+/*!*********************************************************************!*\
+  !*** E:/P11/home-work/Home-work/HBX-01/deu-hbx/model/indexModel.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _createSuper(Derived) {var hasNativeReflectConstruct = _isNativeReflectConstruct();return function _createSuperInternal() {var Super = _getPrototypeOf(Derived),result;if (hasNativeReflectConstruct) {var NewTarget = _getPrototypeOf(this).constructor;result = Reflect.construct(Super, arguments, NewTarget);} else {result = Super.apply(this, arguments);}return _possibleConstructorReturn(this, result);};}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _isNativeReflectConstruct() {if (typeof Reflect === "undefined" || !Reflect.construct) return false;if (Reflect.construct.sham) return false;if (typeof Proxy === "function") return true;try {Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));return true;} catch (e) {return false;}}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}
+
+
+// 类继承   static 可转静态(不转需要 new 一个实例化)
+var
+IndexModel = /*#__PURE__*/function (_Http) {_inherits(IndexModel, _Http);var _super = _createSuper(IndexModel);function IndexModel() {_classCallCheck(this, IndexModel);return _super.apply(this, arguments);}_createClass(IndexModel, null, [{ key: "getMobileIndex",
+
+    // 首页接口
+    value: function getMobileIndex() {
+      return _http.default.request({
+        url: '/mobile/index',
+        method: 'GET' });
+
+    }
+
+    // 获取可用优惠券列表
+  }, { key: "getMobileCoupon", value: function getMobileCoupon() {
+      return _http.default.request({
+        url: '/mobile/coupon',
+        method: 'GET' });
+
+    }
+
+    // 获取可用拼团列表
+  }, { key: "getMobileGroup", value: function getMobileGroup() {
+      return _http.default.request({
+        url: '/mobile/group',
+        method: 'GET' });
+
+    }
+
+    // 获取可用秒杀列表  
+  }, { key: "getMobileflashsale", value: function getMobileflashsale() {
+      return _http.default.request({
+        url: '/mobile/flashsale',
+        method: 'GET' });
+
+    } }]);return IndexModel;}(_http.default);var _default =
+
+
+
+IndexModel;exports.default = _default;
+
+/***/ }),
+
+/***/ 23:
+/*!***************************************************************!*\
+  !*** E:/P11/home-work/Home-work/HBX-01/deu-hbx/utils/http.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 18));
+
+var _config = _interopRequireDefault(__webpack_require__(/*! @/config/config.js */ 24));
+
+
+var _exception = _interopRequireDefault(__webpack_require__(/*! @/config/exception.js */ 114));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _objectWithoutProperties(source, excluded) {if (source == null) return {};var target = _objectWithoutPropertiesLoose(source, excluded);var key, i;if (Object.getOwnPropertySymbols) {var sourceSymbolKeys = Object.getOwnPropertySymbols(source);for (i = 0; i < sourceSymbolKeys.length; i++) {key = sourceSymbolKeys[i];if (excluded.indexOf(key) >= 0) continue;if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;target[key] = source[key];}}return target;}function _objectWithoutPropertiesLoose(source, excluded) {if (source == null) return {};var target = {};var sourceKeys = Object.keys(source);var key, i;for (i = 0; i < sourceKeys.length; i++) {key = sourceKeys[i];if (excluded.indexOf(key) >= 0) continue;target[key] = source[key];}return target;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}
+
+// ES6创建class 类   static 可转静态(不转需要 new 一个实例化)
+var Http = /*#__PURE__*/function () {function Http() {_classCallCheck(this, Http);}_createClass(Http, null, [{ key: "_beforeRequest",
+
+    // 请求拦截
+    value: function () {var _beforeRequest2 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(config) {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+
+                config.header = {
+                  appid: _config.default.appid };
+
+
+                // 还可以做权限处理
+                // console.log('Config', config);
+                return _context.abrupt("return", config);case 2:case "end":return _context.stop();}}}, _callee);}));function _beforeRequest(_x) {return _beforeRequest2.apply(this, arguments);}return _beforeRequest;}()
+
+
+    //  http 请求   static request(options) {
+  }, { key: "request", value: function () {var _request = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(_ref) {var url, method, data, header, options, config, response;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                url = _ref.url,
+                method = _ref.method,
+                data = _ref.data,
+                header = _ref.header,
+                options = _objectWithoutProperties(_ref, ["url", "method", "data", "header"]);_context2.next = 3;return (
+
+
+
+                  Http._beforeRequest(_objectSpread({
+                    url: url,
+                    method: method,
+                    data: data,
+                    header: header },
+                  options)));case 3:config = _context2.sent;
+
+                // 基准地址
+                config.url = _config.default.baseURL + config.url;
+                //  请求
+                _context2.next = 7;return uni.request(config);case 7:response = _context2.sent;_context2.next = 10;return (
+
+                  Http._beforeResponse(response));case 10:return _context2.abrupt("return", _context2.sent);case 11:case "end":return _context2.stop();}}}, _callee2);}));function request(_x2) {return _request.apply(this, arguments);}return request;}()
+
+
+    // 响应拦截
+  }, { key: "_beforeResponse", value: function () {var _beforeResponse2 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(response) {var _response, error, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                // console.log('响应拦截', response);
+                _response = _slicedToArray(
+
+
+
+                response, 2), // 解构赋值  [] 可以用
+                error = _response[0], res = _response[1];
+                // console.log('123', error, res);
+
+                // 请求失败
+                if (res.statusCode !== 200 || res.data.msg === 'fail') {
+                  // 错误的 信息提示
+                  Http._showError(res.statusCode, res.data.data);
+                }
+
+                // token过期
+                return _context3.abrupt("return",
+                res.data.data);case 3:case "end":return _context3.stop();}}}, _callee3);}));function _beforeResponse(_x3) {return _beforeResponse2.apply(this, arguments);}return _beforeResponse;}()
+
+
+    // 错误的 信息提示
+  }, { key: "_showError", value: function _showError(code, res) {
+      console.log('信息提示', res);
+      var title = '';
+      title = _exception.default[code] || msg || '发生未知错误';
+      uni.showToast({
+        title: title,
+        icon: 'none',
+        duration: 2000 });
+
+
+    } }]);return Http;}();var _default =
+
+
+
+
+
+
+Http;
+
+// uni.request({
+// 	url: '',
+// 	method: '',
+// 	data: {}，
+// 	success: res => {},
+// 	fail: err => {},
+// 	complete: () => {}
+// })
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 24:
+/*!******************************************************************!*\
+  !*** E:/P11/home-work/Home-work/HBX-01/deu-hbx/config/config.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // 基准路径
+var config = {
+  baseURL: 'http://demonuxtapi.dishait.cn',
+  appid: "bd9d01ecc75dbbaaefce" };var _default =
+
+
+config;exports.default = _default;
 
 /***/ }),
 
@@ -10017,7 +10220,7 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 82:
+/***/ 85:
 /*!*****************************************************************************************************!*\
   !*** E:/P11/home-work/Home-work/HBX-01/deu-hbx/uni_modules/uni-icons/components/uni-icons/icons.js ***!
   \*****************************************************************************************************/
@@ -11194,7 +11397,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 98:
+/***/ 93:
 /*!********************************************************************************************************!*\
   !*** E:/P11/home-work/Home-work/HBX-01/deu-hbx/uni_modules/uni-forms/components/uni-forms/validate.js ***!
   \********************************************************************************************************/
@@ -11691,7 +11894,7 @@ SchemaValidator;exports.default = _default;
 
 /***/ }),
 
-/***/ 99:
+/***/ 94:
 /*!*****************************************************************************************************!*\
   !*** E:/P11/home-work/Home-work/HBX-01/deu-hbx/uni_modules/uni-forms/components/uni-forms/utils.js ***!
   \*****************************************************************************************************/

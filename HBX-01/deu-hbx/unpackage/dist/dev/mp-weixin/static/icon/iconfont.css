@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3593045 */
-  src: url('@/static/icon/sticonfont.ttf') format('truetype');
+  src:  url('@/static/icon/iconfont.ttf') format('truetype');
 }
 
 .iconfont {
@@ -11,7 +11,35 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-shezhi:before {
-  content: "\e8b7";
+.icon-shoucang:before {
+  content: "\e600";
+}
+
+.icon-wodeyouhuiquan:before {
+  content: "\e65a";
+}
+
+.icon-fenlei:before {
+  content: "\e671";
+}
+
+.icon-icon-test:before {
+  content: "\e626";
+}
+
+.icon-wenti:before {
+  content: "\e856";
+}
+
+.icon-weixin:before {
+  content: "\e611";
+}
+
+.icon-xiaoxi1:before {
+  content: "\e608";
+}
+
+.icon-zixuexigongju:before {
+  content: "\e615";
 }
 

@@ -1,0 +1,57 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 列表  */
+.lists-box {
+	box-sizing: border-box;
+	align-items: center;
+}
+.list {
+	box-sizing: border-box;
+	width: 100%;
+}
+.lists-top {
+	margin-bottom: 20rpx;
+}
+.lists-left {
+	width: 150px;
+	height: 85px;
+	margin-right: 10rpx;
+}
+.lists-left image {
+	width: 150px;
+	height: 85px;
+}
+.lists-right {
+	width: 200px
+}
+
