@@ -1,10 +1,12 @@
 {
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "i-search-bar": "/components/i-search-bar/i-search-bar",
     "i-swiper-bar": "/components/i-swiper-bar/i-swiper-bar",
     "i-nav-bar": "/components/i-nav-bar/i-nav-bar",
     "i-coupon-bar": "/components/i-coupon-bar/i-coupon-bar",
     "i-dough-bar": "/components/i-dough-bar/i-dough-bar",
-    "i-list-bar": "/components/i-list-bar/i-list-bar"
+    "i-list-bar": "/components/i-list-bar/i-list-bar",
+    "index-skeletion": "/pages/index/index-skeletion"
   }
 }

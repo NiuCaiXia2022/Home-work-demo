@@ -1,6 +1,11 @@
 // 封装请求
 
+
+// 请求头
 import Config from '@/config/config.js'
+
+// vuex
+import store from '@/store/index.js'
 
 // 自定义信息提示
 import exceptionMessage from '@/config/exception.js'
@@ -10,10 +15,31 @@ class Http {
 
 	// 请求拦截
 	static async _beforeRequest(config) {
+		// 获取vuex中token
+		const token = store.state.token
+		// console.log('token', token);
+
+		if (token) {
+			config.header = {
+				token
+			}
+		}
+
+		// if (!token) return
+		// // config.header = {
+		// // 	appid: Config.appid,
+		// // 	token
+		// // }
 
 		config.header = {
-			appid: Config.appid
+			appid: Config.appid,
 		}
+
+		// 报错 TypeError: Cannot set properties of undefined (setting 'token')
+		// if (token) config.header.token = token // 添加token
+		// config.header.appid = Config.appid
+
+
 
 		// 还可以做权限处理
 		// console.log('Config', config);
@@ -39,6 +65,7 @@ class Http {
 		})
 		// 基准地址
 		config.url = Config.baseURL + config.url
+		// console.log('基准地址', config.url);
 		//  请求
 		const response = await uni.request(config) // return res[1].data
 		// 调用  响应拦截函数
@@ -54,8 +81,6 @@ class Http {
 			res
 		] = response
 
-		// console.log('123', error, res);
-
 		// 请求失败
 		if (res.statusCode !== 200 || res.data.msg === 'fail') {
 			// 错误的 信息提示
@@ -69,20 +94,17 @@ class Http {
 
 	// 错误的 信息提示
 	static _showError(code, res) {
-		console.log('信息提示', res);
+		console.log('信息提示', code, res);
 		let title = ''
+
 		title = exceptionMessage[code] || msg || '发生未知错误'
 		uni.showToast({
 			title,
 			icon: 'none',
 			duration: 2000
 		})
-
 	}
-
 }
-
-
 
 
 export default Http

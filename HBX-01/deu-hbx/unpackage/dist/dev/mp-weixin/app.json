@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/learn/learn",
     "pages/my/my",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/bind-phone/bind-phone"
   ],
   "subPackages": [],
   "window": {

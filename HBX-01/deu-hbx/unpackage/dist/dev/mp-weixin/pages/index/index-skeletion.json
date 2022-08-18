@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "i-sekletion": "/components/i-sekletion/i-sekletion"
+  },
+  "component": true
+}

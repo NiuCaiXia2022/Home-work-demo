@@ -1,55 +1,58 @@
 <template>
+	<!-- 登录 -->
 	<view class="content">
-		<!-- 登录 -->
-		<view class="login-bg"></view>
+		<!-- 返回上页 -->
+		<view class="login-bg pt-3 pl-3" @click="handleBack">
+			<!-- back -->
+			<uni-icons type="back" color="#fff" size="20"></uni-icons>
+		</view>
 
 		<view class="login-box">
-			<view class="login-title">{{flag?'注 册': '登 录'}}</view>
+			<view class="login-title">{{pageType==='login'?'登 录': '注 册'}}</view>
 
 			<!-- 表单 -->
-			<!-- <form @submit="handleToLogin">
-				<view class="uni-form-item uni-column">
-					<input class="uni-input" style="color:#ccc;" name="username" placeholder="请输入用户名" />
-				</view>
+			<!-- <form @submit="handleToLogin"> -->
+			<view class="flex mr-1 mb-2 form-icon p-2 rounded">
+				<uni-icons type="person" size="22" class="mr-2"></uni-icons>
+				<input class="uni-input" name="username" v-model.trim="formData.username" placeholder="请输入用户名" />
+			</view>
 
-				<view class="uni-btn-v">
-					<button form-type="submit">{{flag?'注册': '登录'}}</button>
-				</view>
-			</form> -->
+			<view class="mb-2 flex form-icon p-2 rounded">
+				<uni-icons type="locked" size="22" class="mr-2"></uni-icons>
+				<input class="uni-input" name="password" v-model.trim="formData.password" placeholder="请输入密码" />
+			</view>
 
+			<view class="mb-2 flex form-icon p-2 rounded" v-if="pageType==='reg'">
+				<uni-icons type="locked" size="22" class="mr-2"></uni-icons>
+				<input class="uni-input" name="repassword" v-model.trim="formData.repassword" placeholder="确认密码" />
+			</view>
 
-			<!-- 表单 -->
-			<uni-forms :modelValue="loginFormData" :rules="rules" label-position="top" ref="loginForm">
-				<!-- required 星号显示 必填 -->
-				<uni-easyinput class="input" :clearable="false" prefixIcon="person" type="text" :inputBorder="false"
-					v-model.trim="loginFormData.username" placeholder="请输入用户名" />
+			<view class="uni-btn-v">
+				<button form-type="submit" class="btn-color"
+					@click="handleToLogin">{{pageType==='login'?'登 录': '注 册'}}</button>
+			</view>
+			<!-- </form> -->
 
-				<uni-easyinput class="input" :clearable="false" prefixIcon="locked" :inputBorder="false" passwordIcon
-					type="password" v-model.trim="loginFormData.password" placeholder="请输入密码" />
-
-				<uni-easyinput v-if="flag" class="input" :clearable="false" prefixIcon="locked" :inputBorder="false"
-					passwordIcon type="password" v-model.trim="loginFormData.repassword" placeholder="确认密码" />
-				<button type="primary" class="mt-2" @click="handleToLogin(flag)">{{flag?'注册': '登录'}}</button>
-			</uni-forms>
-
-
-
+			<!--忘记密码  -->
 			<view class="flex align-center justify-between my-3 font ">
-				<text class="py-3 text-main" @click="handleRegister">注册账号</text>
+				<text class="py-3 text-main" @click="handleSwitchState">{{pageType==='login'?'注册账号': '去登陆'}}</text>
 				<text class="py-3 text-light-muted">忘记密码？</text>
 			</view>
 
+			<!-- icon -->
 			<view class=" flex align-center justify-center wechatlogin">
 				<uni-icons custom-prefix="iconfont" class="icon-box" type="icon-weixin" size="28" color="#5ccc84">
 				</uni-icons>
 			</view>
 
-
-			<view class="flex align-center justify-center mt-4" v-if="!flag">
-				<label>
-					<checkbox value="cb" checked="true" />
-				</label>
-				<text>已阅读并同意用户协议&隐私声明</text>
+			<!-- 用户协议 -->
+			<view class="flex align-center justify-center mt-4" v-if="pageType==='login'">
+				<checkbox-group @change="handleCheckbox">
+					<label class=" text-light-muted">
+						<checkbox value="cb" :checked="check" />
+					</label>
+				</checkbox-group>
+				<text class="font ml-1 text-light-muted">已阅读并同意用户协议&隐私声明</text>
 			</view>
 
 
@@ -61,132 +64,127 @@
 
 <script>
 	// 接口 
-	import Login from '@/model/login.js'
+	import UserModel from '@/model/userModel.js'
 	export default {
 		data() {
 			return {
-				flag: false,
-				loginFormData: {
+				pageType: 'login', // 切换状态
+				formData: { // 表单
 					username: '',
 					password: '',
 					repassword: ''
 				},
-				form: {},
-				rules: { //效验
-					username: {
-						rules: [{
-							errorMessage: '姓名不能为空'
-						}]
-					},
-					password: {
-						rules: [{
-							errorMessage: '密码不能为空'
-						}]
-					},
-					// password: [{
-					// 		required: true,
-					// 		errMessage: '请输入密码'
-					// 	},
-					// 	// {minLength:5,pattem:/^[1]([3-9])[0-9]{9}$/,errMessage:'密码不合法'},
-					// ]
-				},
-
+				check: false, //复选框
 			}
 		},
 		methods: {
+			// 返回上页
+			handleBack() {
+				uni.navigateBack({
+					delta: 1
+				})
+			},
+
 			// 点击登录
-			handleToLogin(flag) {
-				console.log(this.loginFormData.username);
-				console.log(this.loginFormData.username.value);
-				console.log('flag', flag);
-				if (!flag) { //false
-					if (this.loginFormData.username === '' && this.loginFormData.password === '') {
-						// 消息提示框
-						uni.showToast({
-							title: '用户名/密码不能为空',
-							duration: 2000,
-							icon: 'none'
-						});
-					}
-				} else {
-					// this.flag = true
-					// 跳转首页
-					uni.switchTab({
-						url: '/pages/index/index'
+			handleToLogin() {
+				uni.showLoading({
+					title: '提交中···',
+					mask: false
+				})
+				this.pageType === 'login' ? this.signLogin() : this.handleRegister()
+			},
+
+			// 登录
+			async signLogin() {
+				// console.log('this.check', this.check);
+				if (!this.check) {
+					return uni.showToast({
+						title: '请先阅读并同意用户协议&隐私声明',
+						icon: 'none'
 					})
 				}
-			},
-
-			// 发送请求
-			async signLogin() {
-				const data = {
-					username: this.loginFormData.username,
-					password: this.loginFormData.password
+				try {
+					const data = this.lodash.cloneDeep(this.formData) //深拷贝
+					delete data.repassword // 删除验证密码
+					const res = await UserModel.getToLogin(data)
+					// console.log('登录', res);
+					this.phoneNumber(res.phone) //  判断 手机号
+					this.formReset() //清空
+					this.$store.dispatch('setUserInfo', res) //存本地
+				} catch (e) {
+					console.log(e);
+				} finally {
+					uni.hideLoading()
 				}
-				// const res = await Login.getToLogin()
+			},
+
+			// 注册
+			async handleRegister() {
+				try {
+					const data = this.lodash.cloneDeep(this.formData) //深拷贝
+					const res = await UserModel.getRegister(data)
+					// console.log('注册', res);
+					uni.showToast({
+						title: '注册成功',
+						icon: 'none'
+					})
+					this.pageType = 'login' //切换登录
+					this.formReset() //清空
+
+					// 返回上一页
+					uni.navigateBack({
+						delta: 1
+					})
+
+				} catch (e) {
+					//TODO handle the exception
+					console.log(e);
+				} finally {
+					uni.hideLoading()
+				}
 
 			},
 
-			// 点击注册
-			handleRegister() {
-				this.flag = true
-			}
+			// 判断 手机号
+			phoneNumber(phone) {
+				if (!phone) {
+					uni.navigateTo({ // 跳转
+						url: '/pages/bind-phone/bind-phone'
+					})
+					return
+				}
+			},
+
+
+			// 表单清空  
+			formReset() {
+				this.formData = {
+					username: '',
+					password: '',
+					repassword: ''
+				}
+			},
+
+			//  切换状态
+			handleSwitchState() {
+				this.pageType = this.pageType === 'login' ? 'reg' : 'login'
+			},
+
+			// 复选框状态 切换
+			handleCheckbox(e) {
+				// console.log('e', e.detail.value.length);
+				this.check = !(!e.detail.value.length)
+				// console.log('this.check', this.check);
+			},
+
 
 		},
-		onLoad() {
-			this.flag = false
-			this.signLogin()
-		}
+		onLoad() {}
 	}
 </script>
 
 <style>
-	pages {
-		background-image: linear-gradient(120deg, #3bfdaf, #70d6f2);
-	}
 
-	.icon-box {
-		border: #5ccc84 1px solid;
-		padding: 10rpx;
-		border-radius: 50%;
-	}
-
-	.login-bg {
-		height: 220rpx;
-		width: 100%;
-		background-image: linear-gradient(120deg, #3bfdaf, #70d6f2);
-	}
-
-	.login-box {
-		position: absolute;
-		top: 180rpx;
-		left: 0;
-		right: 0;
-		height: 600rpx;
-		background-color: #fff;
-		border-radius: 40rpx 40rpx 0 0;
-		padding: 60rpx 70rpx 0;
-	}
-
-	.login-title {
-		font-size: 40rpx;
-		margin-bottom: 50rpx;
-	}
-
-	.input {
-		font-size: 55rpx;
-		height: 100rpx;
-		margin-bottom: 30rpx;
-		color: #f5f5f5;
-	}
-
-
-	.image {
-		width: 100rpx;
-		height: 100rpx;
-		background-color: #5ccc84;
-		border-radius: 50%;
-	}
 </style>
 
 // this.$refs[ref].validate().then(res => {
@@ -197,3 +195,29 @@
 // }).catch(err => {
 // console.log('err', err);
 // })
+
+
+<!-- 效验 -->
+// password: [{
+// required: true,
+// errMessage: '请输入密码'
+// },
+// // {minLength:5,pattem:/^[1]([3-9])[0-9]{9}$/,errMessage:'密码不合法'},
+// ]
+
+
+<!-- 表单 验证 -->
+<!-- required 星号显示 必填 -->
+<!-- <uni-forms :modelValue="loginFormData" :rules="rules" label-position="top" ref="loginForm">
+
+				<uni-easyinput class="input" :clearable="false" prefixIcon="person" type="text" :inputBorder="false"
+					v-model.trim="loginFormData.username" placeholder="请输入用户名" />
+
+				<uni-easyinput class="input" :clearable="false" prefixIcon="locked" :inputBorder="false" passwordIcon
+					type="password" v-model.trim="loginFormData.password" placeholder="请输入密码" />
+
+				<uni-easyinput v-if="flag" class="input" :clearable="false" prefixIcon="locked" :inputBorder="false"
+					passwordIcon type="password" v-model.trim="loginFormData.repassword" placeholder="确认密码" />
+
+				<button type="primary" class="mt-2" @click="handleToLogin(flag)">{{flag?'注册': '登录'}}</button>
+			</uni-forms> -->

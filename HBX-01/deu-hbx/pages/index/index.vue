@@ -2,8 +2,6 @@
 	<!-- h5 / app / 小程序-->
 	<view class="content">
 
-		<!-- <i-sekletion   width="100rpx" height="100rpx" circle></i-sekletion> -->
-
 		<!-- // 骨架屏  -->
 		<index-skeletion v-if="!loadingStatus"></index-skeletion>
 
@@ -63,7 +61,7 @@
 </template>
 
 <script>
-	import http from '@/utils/request.js'
+	// import http from '@/utils/request.js'
 	// 接口
 	import IndexModel from '@/model/indexModel.js'
 
@@ -88,7 +86,8 @@
 			this.loadRefresh()
 		},
 		onLoad() {
-			this.loadRefresh()
+			// this.loadRefresh()
+			this.getList()
 		},
 		components: {
 			// 子组件注册
